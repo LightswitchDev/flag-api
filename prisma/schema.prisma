@@ -1,25 +1,35 @@
 generator photon {
-  provider = "photonjs"
+    provider = "photonjs"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = "postgresql://postgres:mypassword@localhost/flags?schema=flags&sslmode=prefer"
+    provider = "postgresql"
+    url      = "postgresql://postgres:mypassword@localhost/lightswitch?sslmode=prefer"
 }
 
-model User {
-  id    String  @default(cuid()) @id
-  email String  @unique
-  name  String?
-  posts Post[]
+model Organization {
+    id   String @default(cuid()) @id
+    name String
 }
 
-model Post {
-  id        String   @default(cuid()) @id
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  published Boolean  @default(false)
-  title     String
-  content   String?
-  author    User?
+model Environment {
+    id           String       @default(cuid()) @id
+    organization Organization
+    name         String
+}
+
+model Switch {
+    id           String       @default(cuid()) @id
+    name         String
+    type         SwitchType
+    environment  Environment
+    organization Organization
+    createdAt    DateTime     @default(now())
+    updatedAt    DateTime     @updatedAt
+
+}
+
+enum SwitchType {
+    Boolean
+    Multi
 }
