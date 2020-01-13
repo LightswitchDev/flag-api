@@ -1,0 +1,17 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateField",
+      "model": "Switch",
+      "field": "environments",
+      "type": "Environment",
+      "arity": "List"
+    },
+    {
+      "tag": "DeleteField",
+      "model": "Switch",
+      "field": "environment"
+    }
+  ]
+}

@@ -1,46 +1,68 @@
-import { Photon } from '@prisma/photon'
-const photon = new Photon()
+import { Photon, SwitchType } from '@prisma/photon'
+const photon = new Photon();
 
 async function main() {
-  const user1 = await photon.users.create({
+
+  const org1 = await photon.organizations.create({
     data: {
-      email: 'alice@prisma.io',
-      name: 'Alice',
-      posts: {
-        create: {
-          title: 'Watch the talks from Prisma Day 2019',
-          content: 'https://www.prisma.io/blog/z11sg6ipb3i1/',
-          published: true,
-        },
-      },
-    },
-  })
-  const user2 = await photon.users.create({
+      name: 'Test Company1',
+    }
+  });
+
+  const org2 = await photon.organizations.create({
     data: {
-      email: 'bob@prisma.io',
-      name: 'Bob',
-      posts: {
-        create: [
-          {
-            title: 'Subscribe to GraphQL Weekly for community news',
-            content: 'https://graphqlweekly.com/',
-            published: true,
-          },
-          {
-            title: 'Follow Prisma on Twitter',
-            content: 'https://twitter.com/prisma/',
-            published: false,
-          },
-        ],
+      name: 'Test Company2',
+    }
+  });
+
+  const env1 = await photon.environments.create({
+    data: {
+      name: 'dev',
+      organization: {
+        connect: {
+          id: org1.id
+        }
+      }
+    }
+  });
+
+  const env2 = await photon.environments.create({
+    data: {
+      name: 'staging',
+      organization: {
+        connect: {
+          id: org1.id
+        }
+      }
+    }
+  });
+
+  const switch1 = await photon.switches.create({
+    data: {
+      name: 'test1',
+      organization: {
+        connect: {
+          id: org1.id
+        }
       },
+      type: SwitchType.Boolean,
+      environments: {
+
+
+        connect: {
+          id: env1.id
+        }
+
+
+      }
     },
   })
 
-  console.log({ user1, user2 })
+  console.log({ org1, org2, env1, switch1 })
 }
 
 main()
   .catch(e => console.error(e))
-  .finally(async () => {
+  .then(async () => {
     await photon.disconnect()
   })

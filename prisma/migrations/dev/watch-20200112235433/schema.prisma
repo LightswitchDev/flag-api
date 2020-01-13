@@ -4,7 +4,7 @@ generator photon {
 
 datasource db {
     provider = "postgresql"
-    url      = "postgresql://postgres:mypassword@localhost/lightswitch?sslmode=prefer"
+    url = "***"
 }
 
 model Organization {
@@ -19,13 +19,13 @@ model Environment {
 }
 
 model Switch {
-    id           String        @default(cuid()) @id
+    id           String       @default(cuid()) @id
     name         String
     type         SwitchType
-    environments Environment[]
+    environment  Environment?
     organization Organization
-    createdAt    DateTime      @default(now())
-    updatedAt    DateTime      @updatedAt
+    createdAt    DateTime     @default(now())
+    updatedAt    DateTime     @updatedAt
 
 }
 

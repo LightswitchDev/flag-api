@@ -25,7 +25,7 @@ const Switch = objectType({
         t.model.id()
         t.model.name()
         t.model.type()
-        t.model.environment()
+        t.model.environments()
         t.model.organization()
         t.model.createdAt()
         t.model.updatedAt()
@@ -38,7 +38,7 @@ const Query = objectType({
         t.crud.organization()
         t.crud.switch()
         t.crud.switches({
-            filtering: { organization: true, environment: true, type: true }
+            filtering: { organization: true, environments: true, type: true }
         })
     }
 })

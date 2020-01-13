@@ -25,7 +25,7 @@ input EnvironmentCreateInput {
   id: ID
   name: String!
   organization: OrganizationCreateOneWithoutOrganizationInput!
-  switches: SwitchCreateManyWithoutSwitchesInput
+  switch: SwitchCreateOneWithoutSwitchInput
 }
 
 input EnvironmentCreateManyWithoutEnvironmentsInput {
@@ -33,18 +33,13 @@ input EnvironmentCreateManyWithoutEnvironmentsInput {
   create: [EnvironmentCreateWithoutOrganizationInput!]
 }
 
-input EnvironmentCreateOneWithoutEnvironmentInput {
-  connect: EnvironmentWhereUniqueInput
-  create: EnvironmentCreateWithoutSwitchesInput
-}
-
 input EnvironmentCreateWithoutOrganizationInput {
   id: ID
   name: String!
-  switches: SwitchCreateManyWithoutSwitchesInput
+  switch: SwitchCreateOneWithoutSwitchInput
 }
 
-input EnvironmentCreateWithoutSwitchesInput {
+input EnvironmentCreateWithoutSwitchInput {
   id: ID
   name: String!
   organization: OrganizationCreateOneWithoutOrganizationInput!
@@ -62,7 +57,6 @@ input EnvironmentScalarWhereInput {
   name: StringFilter
   NOT: [EnvironmentScalarWhereInput!]
   OR: [EnvironmentScalarWhereInput!]
-  switches: SwitchFilter
 }
 
 input EnvironmentUpdateManyDataInput {
@@ -82,25 +76,30 @@ input EnvironmentUpdateManyWithoutOrganizationInput {
   upsert: [EnvironmentUpsertWithWhereUniqueWithoutOrganizationInput!]
 }
 
+input EnvironmentUpdateManyWithoutSwitchInput {
+  connect: [EnvironmentWhereUniqueInput!]
+  create: [EnvironmentCreateWithoutSwitchInput!]
+  delete: [EnvironmentWhereUniqueInput!]
+  deleteMany: [EnvironmentScalarWhereInput!]
+  disconnect: [EnvironmentWhereUniqueInput!]
+  set: [EnvironmentWhereUniqueInput!]
+  update: [EnvironmentUpdateWithWhereUniqueWithoutSwitchInput!]
+  updateMany: [EnvironmentUpdateManyWithWhereNestedInput!]
+  upsert: [EnvironmentUpsertWithWhereUniqueWithoutSwitchInput!]
+}
+
 input EnvironmentUpdateManyWithWhereNestedInput {
   data: EnvironmentUpdateManyDataInput!
   where: EnvironmentScalarWhereInput!
 }
 
-input EnvironmentUpdateOneRequiredWithoutSwitchesInput {
-  connect: EnvironmentWhereUniqueInput
-  create: EnvironmentCreateWithoutSwitchesInput
-  update: EnvironmentUpdateWithoutSwitchesDataInput
-  upsert: EnvironmentUpsertWithoutSwitchesInput
-}
-
 input EnvironmentUpdateWithoutOrganizationDataInput {
   id: ID
   name: String
-  switches: SwitchUpdateManyWithoutEnvironmentInput
+  switch: SwitchUpdateOneWithoutEnvironmentsInput
 }
 
-input EnvironmentUpdateWithoutSwitchesDataInput {
+input EnvironmentUpdateWithoutSwitchDataInput {
   id: ID
   name: String
   organization: OrganizationUpdateOneRequiredWithoutEnvironmentsInput
@@ -111,14 +110,20 @@ input EnvironmentUpdateWithWhereUniqueWithoutOrganizationInput {
   where: EnvironmentWhereUniqueInput!
 }
 
-input EnvironmentUpsertWithoutSwitchesInput {
-  create: EnvironmentCreateWithoutSwitchesInput!
-  update: EnvironmentUpdateWithoutSwitchesDataInput!
+input EnvironmentUpdateWithWhereUniqueWithoutSwitchInput {
+  data: EnvironmentUpdateWithoutSwitchDataInput!
+  where: EnvironmentWhereUniqueInput!
 }
 
 input EnvironmentUpsertWithWhereUniqueWithoutOrganizationInput {
   create: EnvironmentCreateWithoutOrganizationInput!
   update: EnvironmentUpdateWithoutOrganizationDataInput!
+  where: EnvironmentWhereUniqueInput!
+}
+
+input EnvironmentUpsertWithWhereUniqueWithoutSwitchInput {
+  create: EnvironmentCreateWithoutSwitchInput!
+  update: EnvironmentUpdateWithoutSwitchDataInput!
   where: EnvironmentWhereUniqueInput!
 }
 
@@ -129,7 +134,7 @@ input EnvironmentWhereInput {
   NOT: [EnvironmentWhereInput!]
   OR: [EnvironmentWhereInput!]
   organization: OrganizationWhereInput
-  switches: SwitchFilter
+  switch: SwitchWhereInput
 }
 
 input EnvironmentWhereUniqueInput {
@@ -231,7 +236,7 @@ type Query {
 }
 
 input QuerySwitchesWhereInput {
-  environment: EnvironmentWhereInput
+  environments: EnvironmentFilter
   organization: OrganizationWhereInput
   type: SwitchType
 }
@@ -252,7 +257,7 @@ input StringFilter {
 
 type Switch {
   createdAt: DateTime!
-  environment: Environment!
+  environments(after: ID, before: ID, first: Int, last: Int, skip: Int): [Environment!]!
   id: ID!
   name: String!
   organization: Organization!
@@ -262,7 +267,7 @@ type Switch {
 
 input SwitchCreateInput {
   createdAt: DateTime
-  environment: EnvironmentCreateOneWithoutEnvironmentInput!
+  environments: EnvironmentCreateManyWithoutEnvironmentsInput
   id: ID
   name: String!
   organization: OrganizationCreateOneWithoutOrganizationInput!
@@ -272,10 +277,15 @@ input SwitchCreateInput {
 
 input SwitchCreateManyWithoutSwitchesInput {
   connect: [SwitchWhereUniqueInput!]
-  create: [SwitchCreateWithoutEnvironmentInput!]
+  create: [SwitchCreateWithoutOrganizationInput!]
 }
 
-input SwitchCreateWithoutEnvironmentInput {
+input SwitchCreateOneWithoutSwitchInput {
+  connect: SwitchWhereUniqueInput
+  create: SwitchCreateWithoutEnvironmentsInput
+}
+
+input SwitchCreateWithoutEnvironmentsInput {
   createdAt: DateTime
   id: ID
   name: String!
@@ -286,7 +296,7 @@ input SwitchCreateWithoutEnvironmentInput {
 
 input SwitchCreateWithoutOrganizationInput {
   createdAt: DateTime
-  environment: EnvironmentCreateOneWithoutEnvironmentInput!
+  environments: EnvironmentCreateManyWithoutEnvironmentsInput
   id: ID
   name: String!
   type: SwitchType!
@@ -302,6 +312,7 @@ input SwitchFilter {
 input SwitchScalarWhereInput {
   AND: [SwitchScalarWhereInput!]
   createdAt: DateTimeFilter
+  environments: EnvironmentFilter
   id: StringFilter
   name: StringFilter
   NOT: [SwitchScalarWhereInput!]
@@ -317,7 +328,7 @@ enum SwitchType {
 
 input SwitchUpdateInput {
   createdAt: DateTime
-  environment: EnvironmentUpdateOneRequiredWithoutSwitchesInput
+  environments: EnvironmentUpdateManyWithoutSwitchInput
   id: ID
   name: String
   organization: OrganizationUpdateOneRequiredWithoutSwitchesInput
@@ -331,18 +342,6 @@ input SwitchUpdateManyDataInput {
   name: String
   type: SwitchType
   updatedAt: DateTime
-}
-
-input SwitchUpdateManyWithoutEnvironmentInput {
-  connect: [SwitchWhereUniqueInput!]
-  create: [SwitchCreateWithoutEnvironmentInput!]
-  delete: [SwitchWhereUniqueInput!]
-  deleteMany: [SwitchScalarWhereInput!]
-  disconnect: [SwitchWhereUniqueInput!]
-  set: [SwitchWhereUniqueInput!]
-  update: [SwitchUpdateWithWhereUniqueWithoutEnvironmentInput!]
-  updateMany: [SwitchUpdateManyWithWhereNestedInput!]
-  upsert: [SwitchUpsertWithWhereUniqueWithoutEnvironmentInput!]
 }
 
 input SwitchUpdateManyWithoutOrganizationInput {
@@ -362,7 +361,16 @@ input SwitchUpdateManyWithWhereNestedInput {
   where: SwitchScalarWhereInput!
 }
 
-input SwitchUpdateWithoutEnvironmentDataInput {
+input SwitchUpdateOneWithoutEnvironmentsInput {
+  connect: SwitchWhereUniqueInput
+  create: SwitchCreateWithoutEnvironmentsInput
+  delete: Boolean
+  disconnect: Boolean
+  update: SwitchUpdateWithoutEnvironmentsDataInput
+  upsert: SwitchUpsertWithoutEnvironmentsInput
+}
+
+input SwitchUpdateWithoutEnvironmentsDataInput {
   createdAt: DateTime
   id: ID
   name: String
@@ -373,16 +381,11 @@ input SwitchUpdateWithoutEnvironmentDataInput {
 
 input SwitchUpdateWithoutOrganizationDataInput {
   createdAt: DateTime
-  environment: EnvironmentUpdateOneRequiredWithoutSwitchesInput
+  environments: EnvironmentUpdateManyWithoutSwitchInput
   id: ID
   name: String
   type: SwitchType
   updatedAt: DateTime
-}
-
-input SwitchUpdateWithWhereUniqueWithoutEnvironmentInput {
-  data: SwitchUpdateWithoutEnvironmentDataInput!
-  where: SwitchWhereUniqueInput!
 }
 
 input SwitchUpdateWithWhereUniqueWithoutOrganizationInput {
@@ -390,10 +393,9 @@ input SwitchUpdateWithWhereUniqueWithoutOrganizationInput {
   where: SwitchWhereUniqueInput!
 }
 
-input SwitchUpsertWithWhereUniqueWithoutEnvironmentInput {
-  create: SwitchCreateWithoutEnvironmentInput!
-  update: SwitchUpdateWithoutEnvironmentDataInput!
-  where: SwitchWhereUniqueInput!
+input SwitchUpsertWithoutEnvironmentsInput {
+  create: SwitchCreateWithoutEnvironmentsInput!
+  update: SwitchUpdateWithoutEnvironmentsDataInput!
 }
 
 input SwitchUpsertWithWhereUniqueWithoutOrganizationInput {
@@ -405,7 +407,7 @@ input SwitchUpsertWithWhereUniqueWithoutOrganizationInput {
 input SwitchWhereInput {
   AND: [SwitchWhereInput!]
   createdAt: DateTimeFilter
-  environment: EnvironmentWhereInput
+  environments: EnvironmentFilter
   id: StringFilter
   name: StringFilter
   NOT: [SwitchWhereInput!]
