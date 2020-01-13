@@ -4,57 +4,417 @@
 
 scalar DateTime
 
-type Mutation {
-  createDraft(authorEmail: String, content: String, title: String!): Post!
-  deleteOnePost(where: PostWhereUniqueInput!): Post
-  publish(id: ID): Post
-  signupUser(data: UserCreateInput!): User!
+input DateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: DateTime
+  notIn: [DateTime!]
 }
 
-type Post {
-  author: User
-  content: String
-  createdAt: DateTime!
+type Environment {
   id: ID!
-  published: Boolean!
-  title: String!
-  updatedAt: DateTime!
+  name: String!
+  organization: Organization!
 }
 
-input PostCreateManyWithoutPostsInput {
-  connect: [PostWhereUniqueInput!]
-  create: [PostCreateWithoutAuthorInput!]
-}
-
-input PostCreateWithoutAuthorInput {
-  content: String
-  createdAt: DateTime
+input EnvironmentCreateInput {
   id: ID
-  published: Boolean
-  title: String!
-  updatedAt: DateTime
+  name: String!
+  organization: OrganizationCreateOneWithoutOrganizationInput!
+  switches: SwitchCreateManyWithoutSwitchesInput
 }
 
-input PostWhereUniqueInput {
+input EnvironmentCreateManyWithoutEnvironmentsInput {
+  connect: [EnvironmentWhereUniqueInput!]
+  create: [EnvironmentCreateWithoutOrganizationInput!]
+}
+
+input EnvironmentCreateOneWithoutEnvironmentInput {
+  connect: EnvironmentWhereUniqueInput
+  create: EnvironmentCreateWithoutSwitchesInput
+}
+
+input EnvironmentCreateWithoutOrganizationInput {
+  id: ID
+  name: String!
+  switches: SwitchCreateManyWithoutSwitchesInput
+}
+
+input EnvironmentCreateWithoutSwitchesInput {
+  id: ID
+  name: String!
+  organization: OrganizationCreateOneWithoutOrganizationInput!
+}
+
+input EnvironmentFilter {
+  every: EnvironmentWhereInput
+  none: EnvironmentWhereInput
+  some: EnvironmentWhereInput
+}
+
+input EnvironmentScalarWhereInput {
+  AND: [EnvironmentScalarWhereInput!]
+  id: StringFilter
+  name: StringFilter
+  NOT: [EnvironmentScalarWhereInput!]
+  OR: [EnvironmentScalarWhereInput!]
+  switches: SwitchFilter
+}
+
+input EnvironmentUpdateManyDataInput {
+  id: ID
+  name: String
+}
+
+input EnvironmentUpdateManyWithoutOrganizationInput {
+  connect: [EnvironmentWhereUniqueInput!]
+  create: [EnvironmentCreateWithoutOrganizationInput!]
+  delete: [EnvironmentWhereUniqueInput!]
+  deleteMany: [EnvironmentScalarWhereInput!]
+  disconnect: [EnvironmentWhereUniqueInput!]
+  set: [EnvironmentWhereUniqueInput!]
+  update: [EnvironmentUpdateWithWhereUniqueWithoutOrganizationInput!]
+  updateMany: [EnvironmentUpdateManyWithWhereNestedInput!]
+  upsert: [EnvironmentUpsertWithWhereUniqueWithoutOrganizationInput!]
+}
+
+input EnvironmentUpdateManyWithWhereNestedInput {
+  data: EnvironmentUpdateManyDataInput!
+  where: EnvironmentScalarWhereInput!
+}
+
+input EnvironmentUpdateOneRequiredWithoutSwitchesInput {
+  connect: EnvironmentWhereUniqueInput
+  create: EnvironmentCreateWithoutSwitchesInput
+  update: EnvironmentUpdateWithoutSwitchesDataInput
+  upsert: EnvironmentUpsertWithoutSwitchesInput
+}
+
+input EnvironmentUpdateWithoutOrganizationDataInput {
+  id: ID
+  name: String
+  switches: SwitchUpdateManyWithoutEnvironmentInput
+}
+
+input EnvironmentUpdateWithoutSwitchesDataInput {
+  id: ID
+  name: String
+  organization: OrganizationUpdateOneRequiredWithoutEnvironmentsInput
+}
+
+input EnvironmentUpdateWithWhereUniqueWithoutOrganizationInput {
+  data: EnvironmentUpdateWithoutOrganizationDataInput!
+  where: EnvironmentWhereUniqueInput!
+}
+
+input EnvironmentUpsertWithoutSwitchesInput {
+  create: EnvironmentCreateWithoutSwitchesInput!
+  update: EnvironmentUpdateWithoutSwitchesDataInput!
+}
+
+input EnvironmentUpsertWithWhereUniqueWithoutOrganizationInput {
+  create: EnvironmentCreateWithoutOrganizationInput!
+  update: EnvironmentUpdateWithoutOrganizationDataInput!
+  where: EnvironmentWhereUniqueInput!
+}
+
+input EnvironmentWhereInput {
+  AND: [EnvironmentWhereInput!]
+  id: StringFilter
+  name: StringFilter
+  NOT: [EnvironmentWhereInput!]
+  OR: [EnvironmentWhereInput!]
+  organization: OrganizationWhereInput
+  switches: SwitchFilter
+}
+
+input EnvironmentWhereUniqueInput {
+  id: ID
+}
+
+type Mutation {
+  createOneEnvironment(data: EnvironmentCreateInput!): Environment!
+  createOneOrganization(data: OrganizationCreateInput!): Organization!
+  createOneSwitch(data: SwitchCreateInput!): Switch!
+  deleteOneEnvironment(where: EnvironmentWhereUniqueInput!): Environment
+  deleteOneSwitch(where: SwitchWhereUniqueInput!): Switch
+  updateOneSwitch(data: SwitchUpdateInput!, where: SwitchWhereUniqueInput!): Switch
+}
+
+type Organization {
+  id: ID!
+  name: String!
+}
+
+input OrganizationCreateInput {
+  environments: EnvironmentCreateManyWithoutEnvironmentsInput
+  id: ID
+  name: String!
+  switches: SwitchCreateManyWithoutSwitchesInput
+}
+
+input OrganizationCreateOneWithoutOrganizationInput {
+  connect: OrganizationWhereUniqueInput
+  create: OrganizationCreateWithoutSwitchesInput
+}
+
+input OrganizationCreateWithoutEnvironmentsInput {
+  id: ID
+  name: String!
+  switches: SwitchCreateManyWithoutSwitchesInput
+}
+
+input OrganizationCreateWithoutSwitchesInput {
+  environments: EnvironmentCreateManyWithoutEnvironmentsInput
+  id: ID
+  name: String!
+}
+
+input OrganizationUpdateOneRequiredWithoutEnvironmentsInput {
+  connect: OrganizationWhereUniqueInput
+  create: OrganizationCreateWithoutEnvironmentsInput
+  update: OrganizationUpdateWithoutEnvironmentsDataInput
+  upsert: OrganizationUpsertWithoutEnvironmentsInput
+}
+
+input OrganizationUpdateOneRequiredWithoutSwitchesInput {
+  connect: OrganizationWhereUniqueInput
+  create: OrganizationCreateWithoutSwitchesInput
+  update: OrganizationUpdateWithoutSwitchesDataInput
+  upsert: OrganizationUpsertWithoutSwitchesInput
+}
+
+input OrganizationUpdateWithoutEnvironmentsDataInput {
+  id: ID
+  name: String
+  switches: SwitchUpdateManyWithoutOrganizationInput
+}
+
+input OrganizationUpdateWithoutSwitchesDataInput {
+  environments: EnvironmentUpdateManyWithoutOrganizationInput
+  id: ID
+  name: String
+}
+
+input OrganizationUpsertWithoutEnvironmentsInput {
+  create: OrganizationCreateWithoutEnvironmentsInput!
+  update: OrganizationUpdateWithoutEnvironmentsDataInput!
+}
+
+input OrganizationUpsertWithoutSwitchesInput {
+  create: OrganizationCreateWithoutSwitchesInput!
+  update: OrganizationUpdateWithoutSwitchesDataInput!
+}
+
+input OrganizationWhereInput {
+  AND: [OrganizationWhereInput!]
+  environments: EnvironmentFilter
+  id: StringFilter
+  name: StringFilter
+  NOT: [OrganizationWhereInput!]
+  OR: [OrganizationWhereInput!]
+  switches: SwitchFilter
+}
+
+input OrganizationWhereUniqueInput {
   id: ID
 }
 
 type Query {
-  feed: [Post!]!
-  filterPosts(searchString: String): [Post!]!
-  post(where: PostWhereUniqueInput!): Post
+  organization(where: OrganizationWhereUniqueInput!): Organization
+  switch(where: SwitchWhereUniqueInput!): Switch
+  switches(after: ID, before: ID, first: Int, last: Int, skip: Int, where: QuerySwitchesWhereInput): [Switch!]!
 }
 
-type User {
-  email: String!
+input QuerySwitchesWhereInput {
+  environment: EnvironmentWhereInput
+  organization: OrganizationWhereInput
+  type: SwitchType
+}
+
+input StringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: String
+  notIn: [String!]
+  startsWith: String
+}
+
+type Switch {
+  createdAt: DateTime!
+  environment: Environment!
   id: ID!
-  name: String
-  posts: [Post!]!
+  name: String!
+  organization: Organization!
+  type: SwitchType!
+  updatedAt: DateTime!
 }
 
-input UserCreateInput {
-  email: String!
+input SwitchCreateInput {
+  createdAt: DateTime
+  environment: EnvironmentCreateOneWithoutEnvironmentInput!
+  id: ID
+  name: String!
+  organization: OrganizationCreateOneWithoutOrganizationInput!
+  type: SwitchType!
+  updatedAt: DateTime
+}
+
+input SwitchCreateManyWithoutSwitchesInput {
+  connect: [SwitchWhereUniqueInput!]
+  create: [SwitchCreateWithoutEnvironmentInput!]
+}
+
+input SwitchCreateWithoutEnvironmentInput {
+  createdAt: DateTime
+  id: ID
+  name: String!
+  organization: OrganizationCreateOneWithoutOrganizationInput!
+  type: SwitchType!
+  updatedAt: DateTime
+}
+
+input SwitchCreateWithoutOrganizationInput {
+  createdAt: DateTime
+  environment: EnvironmentCreateOneWithoutEnvironmentInput!
+  id: ID
+  name: String!
+  type: SwitchType!
+  updatedAt: DateTime
+}
+
+input SwitchFilter {
+  every: SwitchWhereInput
+  none: SwitchWhereInput
+  some: SwitchWhereInput
+}
+
+input SwitchScalarWhereInput {
+  AND: [SwitchScalarWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  name: StringFilter
+  NOT: [SwitchScalarWhereInput!]
+  OR: [SwitchScalarWhereInput!]
+  type: SwitchType
+  updatedAt: DateTimeFilter
+}
+
+enum SwitchType {
+  Boolean
+  Multi
+}
+
+input SwitchUpdateInput {
+  createdAt: DateTime
+  environment: EnvironmentUpdateOneRequiredWithoutSwitchesInput
   id: ID
   name: String
-  posts: PostCreateManyWithoutPostsInput
+  organization: OrganizationUpdateOneRequiredWithoutSwitchesInput
+  type: SwitchType
+  updatedAt: DateTime
+}
+
+input SwitchUpdateManyDataInput {
+  createdAt: DateTime
+  id: ID
+  name: String
+  type: SwitchType
+  updatedAt: DateTime
+}
+
+input SwitchUpdateManyWithoutEnvironmentInput {
+  connect: [SwitchWhereUniqueInput!]
+  create: [SwitchCreateWithoutEnvironmentInput!]
+  delete: [SwitchWhereUniqueInput!]
+  deleteMany: [SwitchScalarWhereInput!]
+  disconnect: [SwitchWhereUniqueInput!]
+  set: [SwitchWhereUniqueInput!]
+  update: [SwitchUpdateWithWhereUniqueWithoutEnvironmentInput!]
+  updateMany: [SwitchUpdateManyWithWhereNestedInput!]
+  upsert: [SwitchUpsertWithWhereUniqueWithoutEnvironmentInput!]
+}
+
+input SwitchUpdateManyWithoutOrganizationInput {
+  connect: [SwitchWhereUniqueInput!]
+  create: [SwitchCreateWithoutOrganizationInput!]
+  delete: [SwitchWhereUniqueInput!]
+  deleteMany: [SwitchScalarWhereInput!]
+  disconnect: [SwitchWhereUniqueInput!]
+  set: [SwitchWhereUniqueInput!]
+  update: [SwitchUpdateWithWhereUniqueWithoutOrganizationInput!]
+  updateMany: [SwitchUpdateManyWithWhereNestedInput!]
+  upsert: [SwitchUpsertWithWhereUniqueWithoutOrganizationInput!]
+}
+
+input SwitchUpdateManyWithWhereNestedInput {
+  data: SwitchUpdateManyDataInput!
+  where: SwitchScalarWhereInput!
+}
+
+input SwitchUpdateWithoutEnvironmentDataInput {
+  createdAt: DateTime
+  id: ID
+  name: String
+  organization: OrganizationUpdateOneRequiredWithoutSwitchesInput
+  type: SwitchType
+  updatedAt: DateTime
+}
+
+input SwitchUpdateWithoutOrganizationDataInput {
+  createdAt: DateTime
+  environment: EnvironmentUpdateOneRequiredWithoutSwitchesInput
+  id: ID
+  name: String
+  type: SwitchType
+  updatedAt: DateTime
+}
+
+input SwitchUpdateWithWhereUniqueWithoutEnvironmentInput {
+  data: SwitchUpdateWithoutEnvironmentDataInput!
+  where: SwitchWhereUniqueInput!
+}
+
+input SwitchUpdateWithWhereUniqueWithoutOrganizationInput {
+  data: SwitchUpdateWithoutOrganizationDataInput!
+  where: SwitchWhereUniqueInput!
+}
+
+input SwitchUpsertWithWhereUniqueWithoutEnvironmentInput {
+  create: SwitchCreateWithoutEnvironmentInput!
+  update: SwitchUpdateWithoutEnvironmentDataInput!
+  where: SwitchWhereUniqueInput!
+}
+
+input SwitchUpsertWithWhereUniqueWithoutOrganizationInput {
+  create: SwitchCreateWithoutOrganizationInput!
+  update: SwitchUpdateWithoutOrganizationDataInput!
+  where: SwitchWhereUniqueInput!
+}
+
+input SwitchWhereInput {
+  AND: [SwitchWhereInput!]
+  createdAt: DateTimeFilter
+  environment: EnvironmentWhereInput
+  id: StringFilter
+  name: StringFilter
+  NOT: [SwitchWhereInput!]
+  OR: [SwitchWhereInput!]
+  organization: OrganizationWhereInput
+  type: SwitchType
+  updatedAt: DateTimeFilter
+}
+
+input SwitchWhereUniqueInput {
+  id: ID
 }

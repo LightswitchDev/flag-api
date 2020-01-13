@@ -20,37 +20,340 @@ declare global {
 }
 
 export interface NexusGenInputs {
-  PostCreateManyWithoutPostsInput: { // input type
-    connect?: NexusGenInputs['PostWhereUniqueInput'][] | null; // [PostWhereUniqueInput!]
-    create?: NexusGenInputs['PostCreateWithoutAuthorInput'][] | null; // [PostCreateWithoutAuthorInput!]
+  DateTimeFilter: { // input type
+    equals?: any | null; // DateTime
+    gt?: any | null; // DateTime
+    gte?: any | null; // DateTime
+    in?: any[] | null; // [DateTime!]
+    lt?: any | null; // DateTime
+    lte?: any | null; // DateTime
+    not?: any | null; // DateTime
+    notIn?: any[] | null; // [DateTime!]
   }
-  PostCreateWithoutAuthorInput: { // input type
-    content?: string | null; // String
-    createdAt?: any | null; // DateTime
+  EnvironmentCreateInput: { // input type
     id?: string | null; // ID
-    published?: boolean | null; // Boolean
-    title: string; // String!
-    updatedAt?: any | null; // DateTime
+    name: string; // String!
+    organization: NexusGenInputs['OrganizationCreateOneWithoutOrganizationInput']; // OrganizationCreateOneWithoutOrganizationInput!
+    switches?: NexusGenInputs['SwitchCreateManyWithoutSwitchesInput'] | null; // SwitchCreateManyWithoutSwitchesInput
   }
-  PostWhereUniqueInput: { // input type
+  EnvironmentCreateManyWithoutEnvironmentsInput: { // input type
+    connect?: NexusGenInputs['EnvironmentWhereUniqueInput'][] | null; // [EnvironmentWhereUniqueInput!]
+    create?: NexusGenInputs['EnvironmentCreateWithoutOrganizationInput'][] | null; // [EnvironmentCreateWithoutOrganizationInput!]
+  }
+  EnvironmentCreateOneWithoutEnvironmentInput: { // input type
+    connect?: NexusGenInputs['EnvironmentWhereUniqueInput'] | null; // EnvironmentWhereUniqueInput
+    create?: NexusGenInputs['EnvironmentCreateWithoutSwitchesInput'] | null; // EnvironmentCreateWithoutSwitchesInput
+  }
+  EnvironmentCreateWithoutOrganizationInput: { // input type
     id?: string | null; // ID
+    name: string; // String!
+    switches?: NexusGenInputs['SwitchCreateManyWithoutSwitchesInput'] | null; // SwitchCreateManyWithoutSwitchesInput
   }
-  UserCreateInput: { // input type
-    email: string; // String!
+  EnvironmentCreateWithoutSwitchesInput: { // input type
+    id?: string | null; // ID
+    name: string; // String!
+    organization: NexusGenInputs['OrganizationCreateOneWithoutOrganizationInput']; // OrganizationCreateOneWithoutOrganizationInput!
+  }
+  EnvironmentFilter: { // input type
+    every?: NexusGenInputs['EnvironmentWhereInput'] | null; // EnvironmentWhereInput
+    none?: NexusGenInputs['EnvironmentWhereInput'] | null; // EnvironmentWhereInput
+    some?: NexusGenInputs['EnvironmentWhereInput'] | null; // EnvironmentWhereInput
+  }
+  EnvironmentScalarWhereInput: { // input type
+    AND?: NexusGenInputs['EnvironmentScalarWhereInput'][] | null; // [EnvironmentScalarWhereInput!]
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    NOT?: NexusGenInputs['EnvironmentScalarWhereInput'][] | null; // [EnvironmentScalarWhereInput!]
+    OR?: NexusGenInputs['EnvironmentScalarWhereInput'][] | null; // [EnvironmentScalarWhereInput!]
+    switches?: NexusGenInputs['SwitchFilter'] | null; // SwitchFilter
+  }
+  EnvironmentUpdateManyDataInput: { // input type
     id?: string | null; // ID
     name?: string | null; // String
-    posts?: NexusGenInputs['PostCreateManyWithoutPostsInput'] | null; // PostCreateManyWithoutPostsInput
+  }
+  EnvironmentUpdateManyWithWhereNestedInput: { // input type
+    data: NexusGenInputs['EnvironmentUpdateManyDataInput']; // EnvironmentUpdateManyDataInput!
+    where: NexusGenInputs['EnvironmentScalarWhereInput']; // EnvironmentScalarWhereInput!
+  }
+  EnvironmentUpdateManyWithoutOrganizationInput: { // input type
+    connect?: NexusGenInputs['EnvironmentWhereUniqueInput'][] | null; // [EnvironmentWhereUniqueInput!]
+    create?: NexusGenInputs['EnvironmentCreateWithoutOrganizationInput'][] | null; // [EnvironmentCreateWithoutOrganizationInput!]
+    delete?: NexusGenInputs['EnvironmentWhereUniqueInput'][] | null; // [EnvironmentWhereUniqueInput!]
+    deleteMany?: NexusGenInputs['EnvironmentScalarWhereInput'][] | null; // [EnvironmentScalarWhereInput!]
+    disconnect?: NexusGenInputs['EnvironmentWhereUniqueInput'][] | null; // [EnvironmentWhereUniqueInput!]
+    set?: NexusGenInputs['EnvironmentWhereUniqueInput'][] | null; // [EnvironmentWhereUniqueInput!]
+    update?: NexusGenInputs['EnvironmentUpdateWithWhereUniqueWithoutOrganizationInput'][] | null; // [EnvironmentUpdateWithWhereUniqueWithoutOrganizationInput!]
+    updateMany?: NexusGenInputs['EnvironmentUpdateManyWithWhereNestedInput'][] | null; // [EnvironmentUpdateManyWithWhereNestedInput!]
+    upsert?: NexusGenInputs['EnvironmentUpsertWithWhereUniqueWithoutOrganizationInput'][] | null; // [EnvironmentUpsertWithWhereUniqueWithoutOrganizationInput!]
+  }
+  EnvironmentUpdateOneRequiredWithoutSwitchesInput: { // input type
+    connect?: NexusGenInputs['EnvironmentWhereUniqueInput'] | null; // EnvironmentWhereUniqueInput
+    create?: NexusGenInputs['EnvironmentCreateWithoutSwitchesInput'] | null; // EnvironmentCreateWithoutSwitchesInput
+    update?: NexusGenInputs['EnvironmentUpdateWithoutSwitchesDataInput'] | null; // EnvironmentUpdateWithoutSwitchesDataInput
+    upsert?: NexusGenInputs['EnvironmentUpsertWithoutSwitchesInput'] | null; // EnvironmentUpsertWithoutSwitchesInput
+  }
+  EnvironmentUpdateWithWhereUniqueWithoutOrganizationInput: { // input type
+    data: NexusGenInputs['EnvironmentUpdateWithoutOrganizationDataInput']; // EnvironmentUpdateWithoutOrganizationDataInput!
+    where: NexusGenInputs['EnvironmentWhereUniqueInput']; // EnvironmentWhereUniqueInput!
+  }
+  EnvironmentUpdateWithoutOrganizationDataInput: { // input type
+    id?: string | null; // ID
+    name?: string | null; // String
+    switches?: NexusGenInputs['SwitchUpdateManyWithoutEnvironmentInput'] | null; // SwitchUpdateManyWithoutEnvironmentInput
+  }
+  EnvironmentUpdateWithoutSwitchesDataInput: { // input type
+    id?: string | null; // ID
+    name?: string | null; // String
+    organization?: NexusGenInputs['OrganizationUpdateOneRequiredWithoutEnvironmentsInput'] | null; // OrganizationUpdateOneRequiredWithoutEnvironmentsInput
+  }
+  EnvironmentUpsertWithWhereUniqueWithoutOrganizationInput: { // input type
+    create: NexusGenInputs['EnvironmentCreateWithoutOrganizationInput']; // EnvironmentCreateWithoutOrganizationInput!
+    update: NexusGenInputs['EnvironmentUpdateWithoutOrganizationDataInput']; // EnvironmentUpdateWithoutOrganizationDataInput!
+    where: NexusGenInputs['EnvironmentWhereUniqueInput']; // EnvironmentWhereUniqueInput!
+  }
+  EnvironmentUpsertWithoutSwitchesInput: { // input type
+    create: NexusGenInputs['EnvironmentCreateWithoutSwitchesInput']; // EnvironmentCreateWithoutSwitchesInput!
+    update: NexusGenInputs['EnvironmentUpdateWithoutSwitchesDataInput']; // EnvironmentUpdateWithoutSwitchesDataInput!
+  }
+  EnvironmentWhereInput: { // input type
+    AND?: NexusGenInputs['EnvironmentWhereInput'][] | null; // [EnvironmentWhereInput!]
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    NOT?: NexusGenInputs['EnvironmentWhereInput'][] | null; // [EnvironmentWhereInput!]
+    OR?: NexusGenInputs['EnvironmentWhereInput'][] | null; // [EnvironmentWhereInput!]
+    organization?: NexusGenInputs['OrganizationWhereInput'] | null; // OrganizationWhereInput
+    switches?: NexusGenInputs['SwitchFilter'] | null; // SwitchFilter
+  }
+  EnvironmentWhereUniqueInput: { // input type
+    id?: string | null; // ID
+  }
+  OrganizationCreateInput: { // input type
+    environments?: NexusGenInputs['EnvironmentCreateManyWithoutEnvironmentsInput'] | null; // EnvironmentCreateManyWithoutEnvironmentsInput
+    id?: string | null; // ID
+    name: string; // String!
+    switches?: NexusGenInputs['SwitchCreateManyWithoutSwitchesInput'] | null; // SwitchCreateManyWithoutSwitchesInput
+  }
+  OrganizationCreateOneWithoutOrganizationInput: { // input type
+    connect?: NexusGenInputs['OrganizationWhereUniqueInput'] | null; // OrganizationWhereUniqueInput
+    create?: NexusGenInputs['OrganizationCreateWithoutSwitchesInput'] | null; // OrganizationCreateWithoutSwitchesInput
+  }
+  OrganizationCreateWithoutEnvironmentsInput: { // input type
+    id?: string | null; // ID
+    name: string; // String!
+    switches?: NexusGenInputs['SwitchCreateManyWithoutSwitchesInput'] | null; // SwitchCreateManyWithoutSwitchesInput
+  }
+  OrganizationCreateWithoutSwitchesInput: { // input type
+    environments?: NexusGenInputs['EnvironmentCreateManyWithoutEnvironmentsInput'] | null; // EnvironmentCreateManyWithoutEnvironmentsInput
+    id?: string | null; // ID
+    name: string; // String!
+  }
+  OrganizationUpdateOneRequiredWithoutEnvironmentsInput: { // input type
+    connect?: NexusGenInputs['OrganizationWhereUniqueInput'] | null; // OrganizationWhereUniqueInput
+    create?: NexusGenInputs['OrganizationCreateWithoutEnvironmentsInput'] | null; // OrganizationCreateWithoutEnvironmentsInput
+    update?: NexusGenInputs['OrganizationUpdateWithoutEnvironmentsDataInput'] | null; // OrganizationUpdateWithoutEnvironmentsDataInput
+    upsert?: NexusGenInputs['OrganizationUpsertWithoutEnvironmentsInput'] | null; // OrganizationUpsertWithoutEnvironmentsInput
+  }
+  OrganizationUpdateOneRequiredWithoutSwitchesInput: { // input type
+    connect?: NexusGenInputs['OrganizationWhereUniqueInput'] | null; // OrganizationWhereUniqueInput
+    create?: NexusGenInputs['OrganizationCreateWithoutSwitchesInput'] | null; // OrganizationCreateWithoutSwitchesInput
+    update?: NexusGenInputs['OrganizationUpdateWithoutSwitchesDataInput'] | null; // OrganizationUpdateWithoutSwitchesDataInput
+    upsert?: NexusGenInputs['OrganizationUpsertWithoutSwitchesInput'] | null; // OrganizationUpsertWithoutSwitchesInput
+  }
+  OrganizationUpdateWithoutEnvironmentsDataInput: { // input type
+    id?: string | null; // ID
+    name?: string | null; // String
+    switches?: NexusGenInputs['SwitchUpdateManyWithoutOrganizationInput'] | null; // SwitchUpdateManyWithoutOrganizationInput
+  }
+  OrganizationUpdateWithoutSwitchesDataInput: { // input type
+    environments?: NexusGenInputs['EnvironmentUpdateManyWithoutOrganizationInput'] | null; // EnvironmentUpdateManyWithoutOrganizationInput
+    id?: string | null; // ID
+    name?: string | null; // String
+  }
+  OrganizationUpsertWithoutEnvironmentsInput: { // input type
+    create: NexusGenInputs['OrganizationCreateWithoutEnvironmentsInput']; // OrganizationCreateWithoutEnvironmentsInput!
+    update: NexusGenInputs['OrganizationUpdateWithoutEnvironmentsDataInput']; // OrganizationUpdateWithoutEnvironmentsDataInput!
+  }
+  OrganizationUpsertWithoutSwitchesInput: { // input type
+    create: NexusGenInputs['OrganizationCreateWithoutSwitchesInput']; // OrganizationCreateWithoutSwitchesInput!
+    update: NexusGenInputs['OrganizationUpdateWithoutSwitchesDataInput']; // OrganizationUpdateWithoutSwitchesDataInput!
+  }
+  OrganizationWhereInput: { // input type
+    AND?: NexusGenInputs['OrganizationWhereInput'][] | null; // [OrganizationWhereInput!]
+    environments?: NexusGenInputs['EnvironmentFilter'] | null; // EnvironmentFilter
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    NOT?: NexusGenInputs['OrganizationWhereInput'][] | null; // [OrganizationWhereInput!]
+    OR?: NexusGenInputs['OrganizationWhereInput'][] | null; // [OrganizationWhereInput!]
+    switches?: NexusGenInputs['SwitchFilter'] | null; // SwitchFilter
+  }
+  OrganizationWhereUniqueInput: { // input type
+    id?: string | null; // ID
+  }
+  QuerySwitchesWhereInput: { // input type
+    environment?: NexusGenInputs['EnvironmentWhereInput'] | null; // EnvironmentWhereInput
+    organization?: NexusGenInputs['OrganizationWhereInput'] | null; // OrganizationWhereInput
+    type?: NexusGenEnums['SwitchType'] | null; // SwitchType
+  }
+  StringFilter: { // input type
+    contains?: string | null; // String
+    endsWith?: string | null; // String
+    equals?: string | null; // String
+    gt?: string | null; // String
+    gte?: string | null; // String
+    in?: string[] | null; // [String!]
+    lt?: string | null; // String
+    lte?: string | null; // String
+    not?: string | null; // String
+    notIn?: string[] | null; // [String!]
+    startsWith?: string | null; // String
+  }
+  SwitchCreateInput: { // input type
+    createdAt?: any | null; // DateTime
+    environment: NexusGenInputs['EnvironmentCreateOneWithoutEnvironmentInput']; // EnvironmentCreateOneWithoutEnvironmentInput!
+    id?: string | null; // ID
+    name: string; // String!
+    organization: NexusGenInputs['OrganizationCreateOneWithoutOrganizationInput']; // OrganizationCreateOneWithoutOrganizationInput!
+    type: NexusGenEnums['SwitchType']; // SwitchType!
+    updatedAt?: any | null; // DateTime
+  }
+  SwitchCreateManyWithoutSwitchesInput: { // input type
+    connect?: NexusGenInputs['SwitchWhereUniqueInput'][] | null; // [SwitchWhereUniqueInput!]
+    create?: NexusGenInputs['SwitchCreateWithoutEnvironmentInput'][] | null; // [SwitchCreateWithoutEnvironmentInput!]
+  }
+  SwitchCreateWithoutEnvironmentInput: { // input type
+    createdAt?: any | null; // DateTime
+    id?: string | null; // ID
+    name: string; // String!
+    organization: NexusGenInputs['OrganizationCreateOneWithoutOrganizationInput']; // OrganizationCreateOneWithoutOrganizationInput!
+    type: NexusGenEnums['SwitchType']; // SwitchType!
+    updatedAt?: any | null; // DateTime
+  }
+  SwitchCreateWithoutOrganizationInput: { // input type
+    createdAt?: any | null; // DateTime
+    environment: NexusGenInputs['EnvironmentCreateOneWithoutEnvironmentInput']; // EnvironmentCreateOneWithoutEnvironmentInput!
+    id?: string | null; // ID
+    name: string; // String!
+    type: NexusGenEnums['SwitchType']; // SwitchType!
+    updatedAt?: any | null; // DateTime
+  }
+  SwitchFilter: { // input type
+    every?: NexusGenInputs['SwitchWhereInput'] | null; // SwitchWhereInput
+    none?: NexusGenInputs['SwitchWhereInput'] | null; // SwitchWhereInput
+    some?: NexusGenInputs['SwitchWhereInput'] | null; // SwitchWhereInput
+  }
+  SwitchScalarWhereInput: { // input type
+    AND?: NexusGenInputs['SwitchScalarWhereInput'][] | null; // [SwitchScalarWhereInput!]
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    NOT?: NexusGenInputs['SwitchScalarWhereInput'][] | null; // [SwitchScalarWhereInput!]
+    OR?: NexusGenInputs['SwitchScalarWhereInput'][] | null; // [SwitchScalarWhereInput!]
+    type?: NexusGenEnums['SwitchType'] | null; // SwitchType
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+  }
+  SwitchUpdateInput: { // input type
+    createdAt?: any | null; // DateTime
+    environment?: NexusGenInputs['EnvironmentUpdateOneRequiredWithoutSwitchesInput'] | null; // EnvironmentUpdateOneRequiredWithoutSwitchesInput
+    id?: string | null; // ID
+    name?: string | null; // String
+    organization?: NexusGenInputs['OrganizationUpdateOneRequiredWithoutSwitchesInput'] | null; // OrganizationUpdateOneRequiredWithoutSwitchesInput
+    type?: NexusGenEnums['SwitchType'] | null; // SwitchType
+    updatedAt?: any | null; // DateTime
+  }
+  SwitchUpdateManyDataInput: { // input type
+    createdAt?: any | null; // DateTime
+    id?: string | null; // ID
+    name?: string | null; // String
+    type?: NexusGenEnums['SwitchType'] | null; // SwitchType
+    updatedAt?: any | null; // DateTime
+  }
+  SwitchUpdateManyWithWhereNestedInput: { // input type
+    data: NexusGenInputs['SwitchUpdateManyDataInput']; // SwitchUpdateManyDataInput!
+    where: NexusGenInputs['SwitchScalarWhereInput']; // SwitchScalarWhereInput!
+  }
+  SwitchUpdateManyWithoutEnvironmentInput: { // input type
+    connect?: NexusGenInputs['SwitchWhereUniqueInput'][] | null; // [SwitchWhereUniqueInput!]
+    create?: NexusGenInputs['SwitchCreateWithoutEnvironmentInput'][] | null; // [SwitchCreateWithoutEnvironmentInput!]
+    delete?: NexusGenInputs['SwitchWhereUniqueInput'][] | null; // [SwitchWhereUniqueInput!]
+    deleteMany?: NexusGenInputs['SwitchScalarWhereInput'][] | null; // [SwitchScalarWhereInput!]
+    disconnect?: NexusGenInputs['SwitchWhereUniqueInput'][] | null; // [SwitchWhereUniqueInput!]
+    set?: NexusGenInputs['SwitchWhereUniqueInput'][] | null; // [SwitchWhereUniqueInput!]
+    update?: NexusGenInputs['SwitchUpdateWithWhereUniqueWithoutEnvironmentInput'][] | null; // [SwitchUpdateWithWhereUniqueWithoutEnvironmentInput!]
+    updateMany?: NexusGenInputs['SwitchUpdateManyWithWhereNestedInput'][] | null; // [SwitchUpdateManyWithWhereNestedInput!]
+    upsert?: NexusGenInputs['SwitchUpsertWithWhereUniqueWithoutEnvironmentInput'][] | null; // [SwitchUpsertWithWhereUniqueWithoutEnvironmentInput!]
+  }
+  SwitchUpdateManyWithoutOrganizationInput: { // input type
+    connect?: NexusGenInputs['SwitchWhereUniqueInput'][] | null; // [SwitchWhereUniqueInput!]
+    create?: NexusGenInputs['SwitchCreateWithoutOrganizationInput'][] | null; // [SwitchCreateWithoutOrganizationInput!]
+    delete?: NexusGenInputs['SwitchWhereUniqueInput'][] | null; // [SwitchWhereUniqueInput!]
+    deleteMany?: NexusGenInputs['SwitchScalarWhereInput'][] | null; // [SwitchScalarWhereInput!]
+    disconnect?: NexusGenInputs['SwitchWhereUniqueInput'][] | null; // [SwitchWhereUniqueInput!]
+    set?: NexusGenInputs['SwitchWhereUniqueInput'][] | null; // [SwitchWhereUniqueInput!]
+    update?: NexusGenInputs['SwitchUpdateWithWhereUniqueWithoutOrganizationInput'][] | null; // [SwitchUpdateWithWhereUniqueWithoutOrganizationInput!]
+    updateMany?: NexusGenInputs['SwitchUpdateManyWithWhereNestedInput'][] | null; // [SwitchUpdateManyWithWhereNestedInput!]
+    upsert?: NexusGenInputs['SwitchUpsertWithWhereUniqueWithoutOrganizationInput'][] | null; // [SwitchUpsertWithWhereUniqueWithoutOrganizationInput!]
+  }
+  SwitchUpdateWithWhereUniqueWithoutEnvironmentInput: { // input type
+    data: NexusGenInputs['SwitchUpdateWithoutEnvironmentDataInput']; // SwitchUpdateWithoutEnvironmentDataInput!
+    where: NexusGenInputs['SwitchWhereUniqueInput']; // SwitchWhereUniqueInput!
+  }
+  SwitchUpdateWithWhereUniqueWithoutOrganizationInput: { // input type
+    data: NexusGenInputs['SwitchUpdateWithoutOrganizationDataInput']; // SwitchUpdateWithoutOrganizationDataInput!
+    where: NexusGenInputs['SwitchWhereUniqueInput']; // SwitchWhereUniqueInput!
+  }
+  SwitchUpdateWithoutEnvironmentDataInput: { // input type
+    createdAt?: any | null; // DateTime
+    id?: string | null; // ID
+    name?: string | null; // String
+    organization?: NexusGenInputs['OrganizationUpdateOneRequiredWithoutSwitchesInput'] | null; // OrganizationUpdateOneRequiredWithoutSwitchesInput
+    type?: NexusGenEnums['SwitchType'] | null; // SwitchType
+    updatedAt?: any | null; // DateTime
+  }
+  SwitchUpdateWithoutOrganizationDataInput: { // input type
+    createdAt?: any | null; // DateTime
+    environment?: NexusGenInputs['EnvironmentUpdateOneRequiredWithoutSwitchesInput'] | null; // EnvironmentUpdateOneRequiredWithoutSwitchesInput
+    id?: string | null; // ID
+    name?: string | null; // String
+    type?: NexusGenEnums['SwitchType'] | null; // SwitchType
+    updatedAt?: any | null; // DateTime
+  }
+  SwitchUpsertWithWhereUniqueWithoutEnvironmentInput: { // input type
+    create: NexusGenInputs['SwitchCreateWithoutEnvironmentInput']; // SwitchCreateWithoutEnvironmentInput!
+    update: NexusGenInputs['SwitchUpdateWithoutEnvironmentDataInput']; // SwitchUpdateWithoutEnvironmentDataInput!
+    where: NexusGenInputs['SwitchWhereUniqueInput']; // SwitchWhereUniqueInput!
+  }
+  SwitchUpsertWithWhereUniqueWithoutOrganizationInput: { // input type
+    create: NexusGenInputs['SwitchCreateWithoutOrganizationInput']; // SwitchCreateWithoutOrganizationInput!
+    update: NexusGenInputs['SwitchUpdateWithoutOrganizationDataInput']; // SwitchUpdateWithoutOrganizationDataInput!
+    where: NexusGenInputs['SwitchWhereUniqueInput']; // SwitchWhereUniqueInput!
+  }
+  SwitchWhereInput: { // input type
+    AND?: NexusGenInputs['SwitchWhereInput'][] | null; // [SwitchWhereInput!]
+    createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+    environment?: NexusGenInputs['EnvironmentWhereInput'] | null; // EnvironmentWhereInput
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    NOT?: NexusGenInputs['SwitchWhereInput'][] | null; // [SwitchWhereInput!]
+    OR?: NexusGenInputs['SwitchWhereInput'][] | null; // [SwitchWhereInput!]
+    organization?: NexusGenInputs['OrganizationWhereInput'] | null; // OrganizationWhereInput
+    type?: NexusGenEnums['SwitchType'] | null; // SwitchType
+    updatedAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
+  }
+  SwitchWhereUniqueInput: { // input type
+    id?: string | null; // ID
   }
 }
 
 export interface NexusGenEnums {
+  SwitchType: photon.SwitchType
 }
 
 export interface NexusGenRootTypes {
+  Environment: photon.Environment;
   Mutation: {};
-  Post: photon.Post;
+  Organization: photon.Organization;
   Query: {};
-  User: photon.User;
+  Switch: photon.Switch;
   String: string;
   Int: number;
   Float: number;
@@ -60,64 +363,131 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
-  PostCreateManyWithoutPostsInput: NexusGenInputs['PostCreateManyWithoutPostsInput'];
-  PostCreateWithoutAuthorInput: NexusGenInputs['PostCreateWithoutAuthorInput'];
-  PostWhereUniqueInput: NexusGenInputs['PostWhereUniqueInput'];
-  UserCreateInput: NexusGenInputs['UserCreateInput'];
+  DateTimeFilter: NexusGenInputs['DateTimeFilter'];
+  EnvironmentCreateInput: NexusGenInputs['EnvironmentCreateInput'];
+  EnvironmentCreateManyWithoutEnvironmentsInput: NexusGenInputs['EnvironmentCreateManyWithoutEnvironmentsInput'];
+  EnvironmentCreateOneWithoutEnvironmentInput: NexusGenInputs['EnvironmentCreateOneWithoutEnvironmentInput'];
+  EnvironmentCreateWithoutOrganizationInput: NexusGenInputs['EnvironmentCreateWithoutOrganizationInput'];
+  EnvironmentCreateWithoutSwitchesInput: NexusGenInputs['EnvironmentCreateWithoutSwitchesInput'];
+  EnvironmentFilter: NexusGenInputs['EnvironmentFilter'];
+  EnvironmentScalarWhereInput: NexusGenInputs['EnvironmentScalarWhereInput'];
+  EnvironmentUpdateManyDataInput: NexusGenInputs['EnvironmentUpdateManyDataInput'];
+  EnvironmentUpdateManyWithWhereNestedInput: NexusGenInputs['EnvironmentUpdateManyWithWhereNestedInput'];
+  EnvironmentUpdateManyWithoutOrganizationInput: NexusGenInputs['EnvironmentUpdateManyWithoutOrganizationInput'];
+  EnvironmentUpdateOneRequiredWithoutSwitchesInput: NexusGenInputs['EnvironmentUpdateOneRequiredWithoutSwitchesInput'];
+  EnvironmentUpdateWithWhereUniqueWithoutOrganizationInput: NexusGenInputs['EnvironmentUpdateWithWhereUniqueWithoutOrganizationInput'];
+  EnvironmentUpdateWithoutOrganizationDataInput: NexusGenInputs['EnvironmentUpdateWithoutOrganizationDataInput'];
+  EnvironmentUpdateWithoutSwitchesDataInput: NexusGenInputs['EnvironmentUpdateWithoutSwitchesDataInput'];
+  EnvironmentUpsertWithWhereUniqueWithoutOrganizationInput: NexusGenInputs['EnvironmentUpsertWithWhereUniqueWithoutOrganizationInput'];
+  EnvironmentUpsertWithoutSwitchesInput: NexusGenInputs['EnvironmentUpsertWithoutSwitchesInput'];
+  EnvironmentWhereInput: NexusGenInputs['EnvironmentWhereInput'];
+  EnvironmentWhereUniqueInput: NexusGenInputs['EnvironmentWhereUniqueInput'];
+  OrganizationCreateInput: NexusGenInputs['OrganizationCreateInput'];
+  OrganizationCreateOneWithoutOrganizationInput: NexusGenInputs['OrganizationCreateOneWithoutOrganizationInput'];
+  OrganizationCreateWithoutEnvironmentsInput: NexusGenInputs['OrganizationCreateWithoutEnvironmentsInput'];
+  OrganizationCreateWithoutSwitchesInput: NexusGenInputs['OrganizationCreateWithoutSwitchesInput'];
+  OrganizationUpdateOneRequiredWithoutEnvironmentsInput: NexusGenInputs['OrganizationUpdateOneRequiredWithoutEnvironmentsInput'];
+  OrganizationUpdateOneRequiredWithoutSwitchesInput: NexusGenInputs['OrganizationUpdateOneRequiredWithoutSwitchesInput'];
+  OrganizationUpdateWithoutEnvironmentsDataInput: NexusGenInputs['OrganizationUpdateWithoutEnvironmentsDataInput'];
+  OrganizationUpdateWithoutSwitchesDataInput: NexusGenInputs['OrganizationUpdateWithoutSwitchesDataInput'];
+  OrganizationUpsertWithoutEnvironmentsInput: NexusGenInputs['OrganizationUpsertWithoutEnvironmentsInput'];
+  OrganizationUpsertWithoutSwitchesInput: NexusGenInputs['OrganizationUpsertWithoutSwitchesInput'];
+  OrganizationWhereInput: NexusGenInputs['OrganizationWhereInput'];
+  OrganizationWhereUniqueInput: NexusGenInputs['OrganizationWhereUniqueInput'];
+  QuerySwitchesWhereInput: NexusGenInputs['QuerySwitchesWhereInput'];
+  StringFilter: NexusGenInputs['StringFilter'];
+  SwitchCreateInput: NexusGenInputs['SwitchCreateInput'];
+  SwitchCreateManyWithoutSwitchesInput: NexusGenInputs['SwitchCreateManyWithoutSwitchesInput'];
+  SwitchCreateWithoutEnvironmentInput: NexusGenInputs['SwitchCreateWithoutEnvironmentInput'];
+  SwitchCreateWithoutOrganizationInput: NexusGenInputs['SwitchCreateWithoutOrganizationInput'];
+  SwitchFilter: NexusGenInputs['SwitchFilter'];
+  SwitchScalarWhereInput: NexusGenInputs['SwitchScalarWhereInput'];
+  SwitchUpdateInput: NexusGenInputs['SwitchUpdateInput'];
+  SwitchUpdateManyDataInput: NexusGenInputs['SwitchUpdateManyDataInput'];
+  SwitchUpdateManyWithWhereNestedInput: NexusGenInputs['SwitchUpdateManyWithWhereNestedInput'];
+  SwitchUpdateManyWithoutEnvironmentInput: NexusGenInputs['SwitchUpdateManyWithoutEnvironmentInput'];
+  SwitchUpdateManyWithoutOrganizationInput: NexusGenInputs['SwitchUpdateManyWithoutOrganizationInput'];
+  SwitchUpdateWithWhereUniqueWithoutEnvironmentInput: NexusGenInputs['SwitchUpdateWithWhereUniqueWithoutEnvironmentInput'];
+  SwitchUpdateWithWhereUniqueWithoutOrganizationInput: NexusGenInputs['SwitchUpdateWithWhereUniqueWithoutOrganizationInput'];
+  SwitchUpdateWithoutEnvironmentDataInput: NexusGenInputs['SwitchUpdateWithoutEnvironmentDataInput'];
+  SwitchUpdateWithoutOrganizationDataInput: NexusGenInputs['SwitchUpdateWithoutOrganizationDataInput'];
+  SwitchUpsertWithWhereUniqueWithoutEnvironmentInput: NexusGenInputs['SwitchUpsertWithWhereUniqueWithoutEnvironmentInput'];
+  SwitchUpsertWithWhereUniqueWithoutOrganizationInput: NexusGenInputs['SwitchUpsertWithWhereUniqueWithoutOrganizationInput'];
+  SwitchWhereInput: NexusGenInputs['SwitchWhereInput'];
+  SwitchWhereUniqueInput: NexusGenInputs['SwitchWhereUniqueInput'];
+  SwitchType: NexusGenEnums['SwitchType'];
 }
 
 export interface NexusGenFieldTypes {
-  Mutation: { // field return type
-    createDraft: NexusGenRootTypes['Post']; // Post!
-    deleteOnePost: NexusGenRootTypes['Post'] | null; // Post
-    publish: NexusGenRootTypes['Post'] | null; // Post
-    signupUser: NexusGenRootTypes['User']; // User!
-  }
-  Post: { // field return type
-    author: NexusGenRootTypes['User'] | null; // User
-    content: string | null; // String
-    createdAt: any; // DateTime!
+  Environment: { // field return type
     id: string; // ID!
-    published: boolean; // Boolean!
-    title: string; // String!
-    updatedAt: any; // DateTime!
+    name: string; // String!
+    organization: NexusGenRootTypes['Organization']; // Organization!
+  }
+  Mutation: { // field return type
+    createOneEnvironment: NexusGenRootTypes['Environment']; // Environment!
+    createOneOrganization: NexusGenRootTypes['Organization']; // Organization!
+    createOneSwitch: NexusGenRootTypes['Switch']; // Switch!
+    deleteOneEnvironment: NexusGenRootTypes['Environment'] | null; // Environment
+    deleteOneSwitch: NexusGenRootTypes['Switch'] | null; // Switch
+    updateOneSwitch: NexusGenRootTypes['Switch'] | null; // Switch
+  }
+  Organization: { // field return type
+    id: string; // ID!
+    name: string; // String!
   }
   Query: { // field return type
-    feed: NexusGenRootTypes['Post'][]; // [Post!]!
-    filterPosts: NexusGenRootTypes['Post'][]; // [Post!]!
-    post: NexusGenRootTypes['Post'] | null; // Post
+    organization: NexusGenRootTypes['Organization'] | null; // Organization
+    switch: NexusGenRootTypes['Switch'] | null; // Switch
+    switches: NexusGenRootTypes['Switch'][]; // [Switch!]!
   }
-  User: { // field return type
-    email: string; // String!
+  Switch: { // field return type
+    createdAt: any; // DateTime!
+    environment: NexusGenRootTypes['Environment']; // Environment!
     id: string; // ID!
-    name: string | null; // String
-    posts: NexusGenRootTypes['Post'][]; // [Post!]!
+    name: string; // String!
+    organization: NexusGenRootTypes['Organization']; // Organization!
+    type: NexusGenEnums['SwitchType']; // SwitchType!
+    updatedAt: any; // DateTime!
   }
 }
 
 export interface NexusGenArgTypes {
   Mutation: {
-    createDraft: { // args
-      authorEmail?: string | null; // String
-      content?: string | null; // String
-      title: string; // String!
+    createOneEnvironment: { // args
+      data: NexusGenInputs['EnvironmentCreateInput']; // EnvironmentCreateInput!
     }
-    deleteOnePost: { // args
-      where: NexusGenInputs['PostWhereUniqueInput']; // PostWhereUniqueInput!
+    createOneOrganization: { // args
+      data: NexusGenInputs['OrganizationCreateInput']; // OrganizationCreateInput!
     }
-    publish: { // args
-      id?: string | null; // ID
+    createOneSwitch: { // args
+      data: NexusGenInputs['SwitchCreateInput']; // SwitchCreateInput!
     }
-    signupUser: { // args
-      data: NexusGenInputs['UserCreateInput']; // UserCreateInput!
+    deleteOneEnvironment: { // args
+      where: NexusGenInputs['EnvironmentWhereUniqueInput']; // EnvironmentWhereUniqueInput!
+    }
+    deleteOneSwitch: { // args
+      where: NexusGenInputs['SwitchWhereUniqueInput']; // SwitchWhereUniqueInput!
+    }
+    updateOneSwitch: { // args
+      data: NexusGenInputs['SwitchUpdateInput']; // SwitchUpdateInput!
+      where: NexusGenInputs['SwitchWhereUniqueInput']; // SwitchWhereUniqueInput!
     }
   }
   Query: {
-    filterPosts: { // args
-      searchString?: string | null; // String
+    organization: { // args
+      where: NexusGenInputs['OrganizationWhereUniqueInput']; // OrganizationWhereUniqueInput!
     }
-    post: { // args
-      where: NexusGenInputs['PostWhereUniqueInput']; // PostWhereUniqueInput!
+    switch: { // args
+      where: NexusGenInputs['SwitchWhereUniqueInput']; // SwitchWhereUniqueInput!
+    }
+    switches: { // args
+      after?: string | null; // ID
+      before?: string | null; // ID
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+      where?: NexusGenInputs['QuerySwitchesWhereInput'] | null; // QuerySwitchesWhereInput
     }
   }
 }
@@ -127,11 +497,11 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Mutation" | "Post" | "Query" | "User";
+export type NexusGenObjectNames = "Environment" | "Mutation" | "Organization" | "Query" | "Switch";
 
-export type NexusGenInputNames = "PostCreateManyWithoutPostsInput" | "PostCreateWithoutAuthorInput" | "PostWhereUniqueInput" | "UserCreateInput";
+export type NexusGenInputNames = "DateTimeFilter" | "EnvironmentCreateInput" | "EnvironmentCreateManyWithoutEnvironmentsInput" | "EnvironmentCreateOneWithoutEnvironmentInput" | "EnvironmentCreateWithoutOrganizationInput" | "EnvironmentCreateWithoutSwitchesInput" | "EnvironmentFilter" | "EnvironmentScalarWhereInput" | "EnvironmentUpdateManyDataInput" | "EnvironmentUpdateManyWithWhereNestedInput" | "EnvironmentUpdateManyWithoutOrganizationInput" | "EnvironmentUpdateOneRequiredWithoutSwitchesInput" | "EnvironmentUpdateWithWhereUniqueWithoutOrganizationInput" | "EnvironmentUpdateWithoutOrganizationDataInput" | "EnvironmentUpdateWithoutSwitchesDataInput" | "EnvironmentUpsertWithWhereUniqueWithoutOrganizationInput" | "EnvironmentUpsertWithoutSwitchesInput" | "EnvironmentWhereInput" | "EnvironmentWhereUniqueInput" | "OrganizationCreateInput" | "OrganizationCreateOneWithoutOrganizationInput" | "OrganizationCreateWithoutEnvironmentsInput" | "OrganizationCreateWithoutSwitchesInput" | "OrganizationUpdateOneRequiredWithoutEnvironmentsInput" | "OrganizationUpdateOneRequiredWithoutSwitchesInput" | "OrganizationUpdateWithoutEnvironmentsDataInput" | "OrganizationUpdateWithoutSwitchesDataInput" | "OrganizationUpsertWithoutEnvironmentsInput" | "OrganizationUpsertWithoutSwitchesInput" | "OrganizationWhereInput" | "OrganizationWhereUniqueInput" | "QuerySwitchesWhereInput" | "StringFilter" | "SwitchCreateInput" | "SwitchCreateManyWithoutSwitchesInput" | "SwitchCreateWithoutEnvironmentInput" | "SwitchCreateWithoutOrganizationInput" | "SwitchFilter" | "SwitchScalarWhereInput" | "SwitchUpdateInput" | "SwitchUpdateManyDataInput" | "SwitchUpdateManyWithWhereNestedInput" | "SwitchUpdateManyWithoutEnvironmentInput" | "SwitchUpdateManyWithoutOrganizationInput" | "SwitchUpdateWithWhereUniqueWithoutEnvironmentInput" | "SwitchUpdateWithWhereUniqueWithoutOrganizationInput" | "SwitchUpdateWithoutEnvironmentDataInput" | "SwitchUpdateWithoutOrganizationDataInput" | "SwitchUpsertWithWhereUniqueWithoutEnvironmentInput" | "SwitchUpsertWithWhereUniqueWithoutOrganizationInput" | "SwitchWhereInput" | "SwitchWhereUniqueInput";
 
-export type NexusGenEnumNames = never;
+export type NexusGenEnumNames = "SwitchType";
 
 export type NexusGenInterfaceNames = never;
 
