@@ -19,16 +19,30 @@ const Environment = objectType({
     }
 })
 
+const Variant = objectType({
+    name: 'Variant',
+    definition(t) {
+        t.model.id()
+        t.model.value()
+
+    }
+})
+
 const Switch = objectType({
     name: 'Switch',
     definition(t) {
         t.model.id()
         t.model.name()
+        t.model.key()
+        t.model.enabled()
         t.model.type()
         t.model.environments()
+        t.model.defaultVariant()
+        t.model.variants()
         t.model.organization()
         t.model.createdAt()
         t.model.updatedAt()
+
     }
 })
 
@@ -58,7 +72,7 @@ const Mutation = mutationType({
 })
 
 export const schema = makeSchema({
-    types: [Query, Mutation, Organization, Environment, Switch],
+    types: [Query, Mutation, Organization, Environment, Switch, Variant],
     plugins: [nexusPrismaPlugin()],
     outputs: {
         schema: __dirname + '/generated/schema.graphql',

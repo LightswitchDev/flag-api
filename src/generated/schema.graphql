@@ -2,6 +2,11 @@
 ### Do not make changes to this file directly
 
 
+input BooleanFilter {
+  equals: Boolean
+  not: Boolean
+}
+
 scalar DateTime
 
 input DateTimeFilter {
@@ -257,27 +262,35 @@ input StringFilter {
 
 type Switch {
   createdAt: DateTime!
+  defaultVariant: Variant
+  enabled: Boolean!
   environments(after: ID, before: ID, first: Int, last: Int, skip: Int): [Environment!]!
   id: ID!
+  key: String!
   name: String!
   organization: Organization!
   type: SwitchType!
   updatedAt: DateTime!
+  variants(after: ID, before: ID, first: Int, last: Int, skip: Int): [Variant!]!
 }
 
 input SwitchCreateInput {
   createdAt: DateTime
+  defaultVariant: VariantCreateOneWithoutDefaultVariantInput
+  enabled: Boolean
   environments: EnvironmentCreateManyWithoutEnvironmentsInput
   id: ID
+  key: String!
   name: String!
   organization: OrganizationCreateOneWithoutOrganizationInput!
   type: SwitchType!
   updatedAt: DateTime
+  variants: VariantCreateManyWithoutVariantsInput
 }
 
 input SwitchCreateManyWithoutSwitchesInput {
   connect: [SwitchWhereUniqueInput!]
-  create: [SwitchCreateWithoutOrganizationInput!]
+  create: [SwitchCreateWithoutDefaultVariantInput!]
 }
 
 input SwitchCreateOneWithoutSwitchInput {
@@ -285,20 +298,54 @@ input SwitchCreateOneWithoutSwitchInput {
   create: SwitchCreateWithoutEnvironmentsInput
 }
 
-input SwitchCreateWithoutEnvironmentsInput {
+input SwitchCreateWithoutDefaultVariantInput {
   createdAt: DateTime
+  enabled: Boolean
+  environments: EnvironmentCreateManyWithoutEnvironmentsInput
   id: ID
+  key: String!
   name: String!
   organization: OrganizationCreateOneWithoutOrganizationInput!
   type: SwitchType!
   updatedAt: DateTime
+  variants: VariantCreateManyWithoutVariantsInput
+}
+
+input SwitchCreateWithoutEnvironmentsInput {
+  createdAt: DateTime
+  defaultVariant: VariantCreateOneWithoutDefaultVariantInput
+  enabled: Boolean
+  id: ID
+  key: String!
+  name: String!
+  organization: OrganizationCreateOneWithoutOrganizationInput!
+  type: SwitchType!
+  updatedAt: DateTime
+  variants: VariantCreateManyWithoutVariantsInput
 }
 
 input SwitchCreateWithoutOrganizationInput {
   createdAt: DateTime
+  defaultVariant: VariantCreateOneWithoutDefaultVariantInput
+  enabled: Boolean
   environments: EnvironmentCreateManyWithoutEnvironmentsInput
   id: ID
+  key: String!
   name: String!
+  type: SwitchType!
+  updatedAt: DateTime
+  variants: VariantCreateManyWithoutVariantsInput
+}
+
+input SwitchCreateWithoutVariantsInput {
+  createdAt: DateTime
+  defaultVariant: VariantCreateOneWithoutDefaultVariantInput
+  enabled: Boolean
+  environments: EnvironmentCreateManyWithoutEnvironmentsInput
+  id: ID
+  key: String!
+  name: String!
+  organization: OrganizationCreateOneWithoutOrganizationInput!
   type: SwitchType!
   updatedAt: DateTime
 }
@@ -312,13 +359,16 @@ input SwitchFilter {
 input SwitchScalarWhereInput {
   AND: [SwitchScalarWhereInput!]
   createdAt: DateTimeFilter
+  enabled: BooleanFilter
   environments: EnvironmentFilter
   id: StringFilter
+  key: StringFilter
   name: StringFilter
   NOT: [SwitchScalarWhereInput!]
   OR: [SwitchScalarWhereInput!]
   type: SwitchType
   updatedAt: DateTimeFilter
+  variants: VariantFilter
 }
 
 enum SwitchType {
@@ -328,20 +378,38 @@ enum SwitchType {
 
 input SwitchUpdateInput {
   createdAt: DateTime
+  defaultVariant: VariantUpdateOneWithoutSwitchesInput
+  enabled: Boolean
   environments: EnvironmentUpdateManyWithoutSwitchInput
   id: ID
+  key: String
   name: String
   organization: OrganizationUpdateOneRequiredWithoutSwitchesInput
   type: SwitchType
   updatedAt: DateTime
+  variants: VariantUpdateManyWithoutSwitchInput
 }
 
 input SwitchUpdateManyDataInput {
   createdAt: DateTime
+  enabled: Boolean
   id: ID
+  key: String
   name: String
   type: SwitchType
   updatedAt: DateTime
+}
+
+input SwitchUpdateManyWithoutDefaultVariantInput {
+  connect: [SwitchWhereUniqueInput!]
+  create: [SwitchCreateWithoutDefaultVariantInput!]
+  delete: [SwitchWhereUniqueInput!]
+  deleteMany: [SwitchScalarWhereInput!]
+  disconnect: [SwitchWhereUniqueInput!]
+  set: [SwitchWhereUniqueInput!]
+  update: [SwitchUpdateWithWhereUniqueWithoutDefaultVariantInput!]
+  updateMany: [SwitchUpdateManyWithWhereNestedInput!]
+  upsert: [SwitchUpsertWithWhereUniqueWithoutDefaultVariantInput!]
 }
 
 input SwitchUpdateManyWithoutOrganizationInput {
@@ -370,22 +438,70 @@ input SwitchUpdateOneWithoutEnvironmentsInput {
   upsert: SwitchUpsertWithoutEnvironmentsInput
 }
 
+input SwitchUpdateOneWithoutVariantsInput {
+  connect: SwitchWhereUniqueInput
+  create: SwitchCreateWithoutVariantsInput
+  delete: Boolean
+  disconnect: Boolean
+  update: SwitchUpdateWithoutVariantsDataInput
+  upsert: SwitchUpsertWithoutVariantsInput
+}
+
+input SwitchUpdateWithoutDefaultVariantDataInput {
+  createdAt: DateTime
+  enabled: Boolean
+  environments: EnvironmentUpdateManyWithoutSwitchInput
+  id: ID
+  key: String
+  name: String
+  organization: OrganizationUpdateOneRequiredWithoutSwitchesInput
+  type: SwitchType
+  updatedAt: DateTime
+  variants: VariantUpdateManyWithoutSwitchInput
+}
+
 input SwitchUpdateWithoutEnvironmentsDataInput {
   createdAt: DateTime
+  defaultVariant: VariantUpdateOneWithoutSwitchesInput
+  enabled: Boolean
   id: ID
+  key: String
+  name: String
+  organization: OrganizationUpdateOneRequiredWithoutSwitchesInput
+  type: SwitchType
+  updatedAt: DateTime
+  variants: VariantUpdateManyWithoutSwitchInput
+}
+
+input SwitchUpdateWithoutOrganizationDataInput {
+  createdAt: DateTime
+  defaultVariant: VariantUpdateOneWithoutSwitchesInput
+  enabled: Boolean
+  environments: EnvironmentUpdateManyWithoutSwitchInput
+  id: ID
+  key: String
+  name: String
+  type: SwitchType
+  updatedAt: DateTime
+  variants: VariantUpdateManyWithoutSwitchInput
+}
+
+input SwitchUpdateWithoutVariantsDataInput {
+  createdAt: DateTime
+  defaultVariant: VariantUpdateOneWithoutSwitchesInput
+  enabled: Boolean
+  environments: EnvironmentUpdateManyWithoutSwitchInput
+  id: ID
+  key: String
   name: String
   organization: OrganizationUpdateOneRequiredWithoutSwitchesInput
   type: SwitchType
   updatedAt: DateTime
 }
 
-input SwitchUpdateWithoutOrganizationDataInput {
-  createdAt: DateTime
-  environments: EnvironmentUpdateManyWithoutSwitchInput
-  id: ID
-  name: String
-  type: SwitchType
-  updatedAt: DateTime
+input SwitchUpdateWithWhereUniqueWithoutDefaultVariantInput {
+  data: SwitchUpdateWithoutDefaultVariantDataInput!
+  where: SwitchWhereUniqueInput!
 }
 
 input SwitchUpdateWithWhereUniqueWithoutOrganizationInput {
@@ -398,6 +514,17 @@ input SwitchUpsertWithoutEnvironmentsInput {
   update: SwitchUpdateWithoutEnvironmentsDataInput!
 }
 
+input SwitchUpsertWithoutVariantsInput {
+  create: SwitchCreateWithoutVariantsInput!
+  update: SwitchUpdateWithoutVariantsDataInput!
+}
+
+input SwitchUpsertWithWhereUniqueWithoutDefaultVariantInput {
+  create: SwitchCreateWithoutDefaultVariantInput!
+  update: SwitchUpdateWithoutDefaultVariantDataInput!
+  where: SwitchWhereUniqueInput!
+}
+
 input SwitchUpsertWithWhereUniqueWithoutOrganizationInput {
   create: SwitchCreateWithoutOrganizationInput!
   update: SwitchUpdateWithoutOrganizationDataInput!
@@ -407,16 +534,135 @@ input SwitchUpsertWithWhereUniqueWithoutOrganizationInput {
 input SwitchWhereInput {
   AND: [SwitchWhereInput!]
   createdAt: DateTimeFilter
+  defaultVariant: VariantWhereInput
+  enabled: BooleanFilter
   environments: EnvironmentFilter
   id: StringFilter
+  key: StringFilter
   name: StringFilter
   NOT: [SwitchWhereInput!]
   OR: [SwitchWhereInput!]
   organization: OrganizationWhereInput
   type: SwitchType
   updatedAt: DateTimeFilter
+  variants: VariantFilter
 }
 
 input SwitchWhereUniqueInput {
+  id: ID
+}
+
+type Variant {
+  id: ID!
+  value: String!
+}
+
+input VariantCreateManyWithoutVariantsInput {
+  connect: [VariantWhereUniqueInput!]
+  create: [VariantCreateWithoutSwitchInput!]
+}
+
+input VariantCreateOneWithoutDefaultVariantInput {
+  connect: VariantWhereUniqueInput
+  create: VariantCreateWithoutSwitchesInput
+}
+
+input VariantCreateWithoutSwitchesInput {
+  id: ID
+  switch: SwitchCreateOneWithoutSwitchInput
+  value: String!
+}
+
+input VariantCreateWithoutSwitchInput {
+  id: ID
+  switches: SwitchCreateManyWithoutSwitchesInput
+  value: String!
+}
+
+input VariantFilter {
+  every: VariantWhereInput
+  none: VariantWhereInput
+  some: VariantWhereInput
+}
+
+input VariantScalarWhereInput {
+  AND: [VariantScalarWhereInput!]
+  id: StringFilter
+  NOT: [VariantScalarWhereInput!]
+  OR: [VariantScalarWhereInput!]
+  switches: SwitchFilter
+  value: StringFilter
+}
+
+input VariantUpdateManyDataInput {
+  id: ID
+  value: String
+}
+
+input VariantUpdateManyWithoutSwitchInput {
+  connect: [VariantWhereUniqueInput!]
+  create: [VariantCreateWithoutSwitchInput!]
+  delete: [VariantWhereUniqueInput!]
+  deleteMany: [VariantScalarWhereInput!]
+  disconnect: [VariantWhereUniqueInput!]
+  set: [VariantWhereUniqueInput!]
+  update: [VariantUpdateWithWhereUniqueWithoutSwitchInput!]
+  updateMany: [VariantUpdateManyWithWhereNestedInput!]
+  upsert: [VariantUpsertWithWhereUniqueWithoutSwitchInput!]
+}
+
+input VariantUpdateManyWithWhereNestedInput {
+  data: VariantUpdateManyDataInput!
+  where: VariantScalarWhereInput!
+}
+
+input VariantUpdateOneWithoutSwitchesInput {
+  connect: VariantWhereUniqueInput
+  create: VariantCreateWithoutSwitchesInput
+  delete: Boolean
+  disconnect: Boolean
+  update: VariantUpdateWithoutSwitchesDataInput
+  upsert: VariantUpsertWithoutSwitchesInput
+}
+
+input VariantUpdateWithoutSwitchDataInput {
+  id: ID
+  switches: SwitchUpdateManyWithoutDefaultVariantInput
+  value: String
+}
+
+input VariantUpdateWithoutSwitchesDataInput {
+  id: ID
+  switch: SwitchUpdateOneWithoutVariantsInput
+  value: String
+}
+
+input VariantUpdateWithWhereUniqueWithoutSwitchInput {
+  data: VariantUpdateWithoutSwitchDataInput!
+  where: VariantWhereUniqueInput!
+}
+
+input VariantUpsertWithoutSwitchesInput {
+  create: VariantCreateWithoutSwitchesInput!
+  update: VariantUpdateWithoutSwitchesDataInput!
+}
+
+input VariantUpsertWithWhereUniqueWithoutSwitchInput {
+  create: VariantCreateWithoutSwitchInput!
+  update: VariantUpdateWithoutSwitchDataInput!
+  where: VariantWhereUniqueInput!
+}
+
+input VariantWhereInput {
+  AND: [VariantWhereInput!]
+  id: StringFilter
+  NOT: [VariantWhereInput!]
+  OR: [VariantWhereInput!]
+  switch: SwitchWhereInput
+  switches: SwitchFilter
+  value: StringFilter
+}
+
+input VariantWhereUniqueInput {
   id: ID
 }

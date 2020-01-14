@@ -18,14 +18,23 @@ model Environment {
     name         String
 }
 
+model Variant {
+    id    String @default(cuid()) @id
+    value String
+}
+
 model Switch {
-    id           String        @default(cuid()) @id
-    name         String
-    type         SwitchType
-    environments Environment[]
-    organization Organization
-    createdAt    DateTime      @default(now())
-    updatedAt    DateTime      @updatedAt
+    id             String        @default(cuid()) @id
+    name           String
+    key            String
+    type           SwitchType
+    environments   Environment[]
+    enabled        Boolean       @default(false)
+    defaultVariant Variant?      @relation(name: "defaultVariant")
+    variants       Variant[]     @relation(name: "variants")
+    organization   Organization
+    createdAt      DateTime      @default(now())
+    updatedAt      DateTime      @updatedAt
 
 }
 
