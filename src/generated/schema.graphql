@@ -190,6 +190,7 @@ type Key {
   createdAt: DateTime!
   environment: Environment
   id: UUID!
+  organization: Organization
 }
 
 input KeyCreateInput {

@@ -24,6 +24,7 @@ const Key = objectType({
   definition(t) {
     t.model.id()
     t.model.createdAt()
+    t.model.organization()
     t.model.environment()
   },
 })

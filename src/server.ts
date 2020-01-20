@@ -1,8 +1,11 @@
 import { GraphQLServer } from 'graphql-yoga'
 import { schema } from './schema'
 import { createContext } from './context'
+import getSwitchesWithAuthHeader from './controllers/switches'
 
 const server = new GraphQLServer({ schema, context: createContext })
+
+server.express.get('/switches', getSwitchesWithAuthHeader)
 
 server.start(() =>
   console.log(

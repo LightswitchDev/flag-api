@@ -906,6 +906,7 @@ export interface NexusGenFieldTypes {
     createdAt: any; // DateTime!
     environment: NexusGenRootTypes['Environment'] | null; // Environment
     id: any; // UUID!
+    organization: NexusGenRootTypes['Organization'] | null; // Organization
   }
   Mutation: { // field return type
     createOneEnvironment: NexusGenRootTypes['Environment']; // Environment!

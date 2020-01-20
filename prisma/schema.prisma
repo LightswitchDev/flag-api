@@ -10,7 +10,6 @@ datasource db {
 model Organization {
     id   String  @default(cuid()) @id
     name String?
-
     keys Key[]
 }
 
