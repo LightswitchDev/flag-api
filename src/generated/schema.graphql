@@ -152,18 +152,38 @@ type Mutation {
   createOneSwitch(data: SwitchCreateInput!): Switch!
   deleteOneEnvironment(where: EnvironmentWhereUniqueInput!): Environment
   deleteOneSwitch(where: SwitchWhereUniqueInput!): Switch
+  updateOneOrganization(data: OrganizationUpdateInput!, where: OrganizationWhereUniqueInput!): Organization
   updateOneSwitch(data: SwitchUpdateInput!, where: SwitchWhereUniqueInput!): Switch
+}
+
+input NullableStringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: String
+  notIn: [String!]
+  startsWith: String
+}
+
+enum OrderByArg {
+  asc
+  desc
 }
 
 type Organization {
   id: ID!
-  name: String!
+  name: String
 }
 
 input OrganizationCreateInput {
   environments: EnvironmentCreateManyWithoutEnvironmentsInput
   id: ID
-  name: String!
+  name: String
   switches: SwitchCreateManyWithoutSwitchesInput
 }
 
@@ -174,14 +194,21 @@ input OrganizationCreateOneWithoutOrganizationInput {
 
 input OrganizationCreateWithoutEnvironmentsInput {
   id: ID
-  name: String!
+  name: String
   switches: SwitchCreateManyWithoutSwitchesInput
 }
 
 input OrganizationCreateWithoutSwitchesInput {
   environments: EnvironmentCreateManyWithoutEnvironmentsInput
   id: ID
-  name: String!
+  name: String
+}
+
+input OrganizationUpdateInput {
+  environments: EnvironmentUpdateManyWithoutOrganizationInput
+  id: ID
+  name: String
+  switches: SwitchUpdateManyWithoutOrganizationInput
 }
 
 input OrganizationUpdateOneRequiredWithoutEnvironmentsInput {
@@ -224,7 +251,7 @@ input OrganizationWhereInput {
   AND: [OrganizationWhereInput!]
   environments: EnvironmentFilter
   id: StringFilter
-  name: StringFilter
+  name: NullableStringFilter
   NOT: [OrganizationWhereInput!]
   OR: [OrganizationWhereInput!]
   switches: SwitchFilter
@@ -237,7 +264,11 @@ input OrganizationWhereUniqueInput {
 type Query {
   organization(where: OrganizationWhereUniqueInput!): Organization
   switch(where: SwitchWhereUniqueInput!): Switch
-  switches(after: ID, before: ID, first: Int, last: Int, skip: Int, where: QuerySwitchesWhereInput): [Switch!]!
+  switches(after: ID, before: ID, first: Int, last: Int, orderBy: QuerySwitchesOrderByInput, skip: Int, where: QuerySwitchesWhereInput): [Switch!]!
+}
+
+input QuerySwitchesOrderByInput {
+  name: OrderByArg
 }
 
 input QuerySwitchesWhereInput {

@@ -4,7 +4,7 @@ generator photon {
 
 datasource db {
     provider = "postgresql"
-    url      = "postgresql://postgres:mypassword@localhost/lightswitch?sslmode=prefer"
+    url = "***"
 }
 
 model Organization {
