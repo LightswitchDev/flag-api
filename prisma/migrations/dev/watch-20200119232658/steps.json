@@ -1,0 +1,17 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "UpdateField",
+      "model": "Organization",
+      "field": "clientId",
+      "arity": "Required"
+    },
+    {
+      "tag": "UpdateField",
+      "model": "Key",
+      "field": "value",
+      "arity": "Required"
+    }
+  ]
+}

@@ -6,6 +6,7 @@ const Organization = objectType({
   definition(t) {
     t.model.id()
     t.model.name()
+    t.model.keys()
   },
 })
 
@@ -15,6 +16,15 @@ const Environment = objectType({
     t.model.id()
     t.model.name()
     t.model.organization()
+  },
+})
+
+const Key = objectType({
+  name: 'Key',
+  definition(t) {
+    t.model.id()
+    t.model.createdAt()
+    t.model.environment()
   },
 })
 
@@ -48,6 +58,7 @@ const Query = objectType({
   definition(t) {
     t.crud.organization()
     t.crud.switch()
+    t.crud.key()
     t.crud.switches({
       filtering: { organization: true, environments: true, type: true },
       ordering: { name: true },
@@ -60,6 +71,9 @@ const Mutation = mutationType({
     t.crud.createOneOrganization()
     t.crud.updateOneOrganization()
 
+    t.crud.createOneKey()
+    t.crud.deleteOneKey()
+
     t.crud.createOneEnvironment()
     t.crud.deleteOneEnvironment()
 
@@ -70,7 +84,7 @@ const Mutation = mutationType({
 })
 
 export const schema = makeSchema({
-  types: [Query, Mutation, Organization, Environment, Switch, Variant],
+  types: [Query, Mutation, Organization, Key, Environment, Switch, Variant],
   plugins: [nexusPrismaPlugin()],
   outputs: {
     schema: __dirname + '/generated/schema.graphql',

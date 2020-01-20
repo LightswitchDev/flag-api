@@ -4,12 +4,13 @@ generator photon {
 
 datasource db {
     provider = "postgresql"
-    url      = "postgresql://postgres:mypassword@localhost/lightswitch?sslmode=prefer"
+    url = "***"
 }
 
 model Organization {
-    id   String  @default(cuid()) @id
-    name String?
+    id       String  @default(cuid()) @id
+    clientId String? @default(uuid()) @unique
+    name     String?
 
     keys Key[]
 }
@@ -21,7 +22,8 @@ model Environment {
 }
 
 model Key {
-    id          String       @default(uuid()) @id
+    id          String       @default(cuid()) @id
+    value       String?      @default(uuid()) @unique
     createdAt   DateTime     @default(now())
     environment Environment?
 }

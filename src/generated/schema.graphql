@@ -28,6 +28,7 @@ type Environment {
 
 input EnvironmentCreateInput {
   id: ID
+  keys: KeyCreateManyWithoutKeysInput
   name: String!
   organization: OrganizationCreateOneWithoutOrganizationInput!
   switch: SwitchCreateOneWithoutSwitchInput
@@ -35,17 +36,31 @@ input EnvironmentCreateInput {
 
 input EnvironmentCreateManyWithoutEnvironmentsInput {
   connect: [EnvironmentWhereUniqueInput!]
-  create: [EnvironmentCreateWithoutOrganizationInput!]
+  create: [EnvironmentCreateWithoutSwitchInput!]
+}
+
+input EnvironmentCreateOneWithoutEnvironmentInput {
+  connect: EnvironmentWhereUniqueInput
+  create: EnvironmentCreateWithoutKeysInput
+}
+
+input EnvironmentCreateWithoutKeysInput {
+  id: ID
+  name: String!
+  organization: OrganizationCreateOneWithoutOrganizationInput!
+  switch: SwitchCreateOneWithoutSwitchInput
 }
 
 input EnvironmentCreateWithoutOrganizationInput {
   id: ID
+  keys: KeyCreateManyWithoutKeysInput
   name: String!
   switch: SwitchCreateOneWithoutSwitchInput
 }
 
 input EnvironmentCreateWithoutSwitchInput {
   id: ID
+  keys: KeyCreateManyWithoutKeysInput
   name: String!
   organization: OrganizationCreateOneWithoutOrganizationInput!
 }
@@ -59,6 +74,7 @@ input EnvironmentFilter {
 input EnvironmentScalarWhereInput {
   AND: [EnvironmentScalarWhereInput!]
   id: StringFilter
+  keys: KeyFilter
   name: StringFilter
   NOT: [EnvironmentScalarWhereInput!]
   OR: [EnvironmentScalarWhereInput!]
@@ -98,14 +114,32 @@ input EnvironmentUpdateManyWithWhereNestedInput {
   where: EnvironmentScalarWhereInput!
 }
 
+input EnvironmentUpdateOneWithoutKeysInput {
+  connect: EnvironmentWhereUniqueInput
+  create: EnvironmentCreateWithoutKeysInput
+  delete: Boolean
+  disconnect: Boolean
+  update: EnvironmentUpdateWithoutKeysDataInput
+  upsert: EnvironmentUpsertWithoutKeysInput
+}
+
+input EnvironmentUpdateWithoutKeysDataInput {
+  id: ID
+  name: String
+  organization: OrganizationUpdateOneRequiredWithoutEnvironmentsInput
+  switch: SwitchUpdateOneWithoutEnvironmentsInput
+}
+
 input EnvironmentUpdateWithoutOrganizationDataInput {
   id: ID
+  keys: KeyUpdateManyWithoutEnvironmentInput
   name: String
   switch: SwitchUpdateOneWithoutEnvironmentsInput
 }
 
 input EnvironmentUpdateWithoutSwitchDataInput {
   id: ID
+  keys: KeyUpdateManyWithoutEnvironmentInput
   name: String
   organization: OrganizationUpdateOneRequiredWithoutEnvironmentsInput
 }
@@ -118,6 +152,11 @@ input EnvironmentUpdateWithWhereUniqueWithoutOrganizationInput {
 input EnvironmentUpdateWithWhereUniqueWithoutSwitchInput {
   data: EnvironmentUpdateWithoutSwitchDataInput!
   where: EnvironmentWhereUniqueInput!
+}
+
+input EnvironmentUpsertWithoutKeysInput {
+  create: EnvironmentCreateWithoutKeysInput!
+  update: EnvironmentUpdateWithoutKeysDataInput!
 }
 
 input EnvironmentUpsertWithWhereUniqueWithoutOrganizationInput {
@@ -135,6 +174,7 @@ input EnvironmentUpsertWithWhereUniqueWithoutSwitchInput {
 input EnvironmentWhereInput {
   AND: [EnvironmentWhereInput!]
   id: StringFilter
+  keys: KeyFilter
   name: StringFilter
   NOT: [EnvironmentWhereInput!]
   OR: [EnvironmentWhereInput!]
@@ -146,11 +186,139 @@ input EnvironmentWhereUniqueInput {
   id: ID
 }
 
+type Key {
+  createdAt: DateTime!
+  environment: Environment
+  id: UUID!
+}
+
+input KeyCreateInput {
+  createdAt: DateTime
+  environment: EnvironmentCreateOneWithoutEnvironmentInput
+  id: UUID
+  organization: OrganizationCreateOneWithoutOrganizationInput
+}
+
+input KeyCreateManyWithoutKeysInput {
+  connect: [KeyWhereUniqueInput!]
+  create: [KeyCreateWithoutOrganizationInput!]
+}
+
+input KeyCreateWithoutEnvironmentInput {
+  createdAt: DateTime
+  id: UUID
+  organization: OrganizationCreateOneWithoutOrganizationInput
+}
+
+input KeyCreateWithoutOrganizationInput {
+  createdAt: DateTime
+  environment: EnvironmentCreateOneWithoutEnvironmentInput
+  id: UUID
+}
+
+input KeyFilter {
+  every: KeyWhereInput
+  none: KeyWhereInput
+  some: KeyWhereInput
+}
+
+input KeyScalarWhereInput {
+  AND: [KeyScalarWhereInput!]
+  createdAt: DateTimeFilter
+  id: UUIDFilter
+  NOT: [KeyScalarWhereInput!]
+  OR: [KeyScalarWhereInput!]
+}
+
+input KeyUpdateManyDataInput {
+  createdAt: DateTime
+  id: UUID
+}
+
+input KeyUpdateManyWithoutEnvironmentInput {
+  connect: [KeyWhereUniqueInput!]
+  create: [KeyCreateWithoutEnvironmentInput!]
+  delete: [KeyWhereUniqueInput!]
+  deleteMany: [KeyScalarWhereInput!]
+  disconnect: [KeyWhereUniqueInput!]
+  set: [KeyWhereUniqueInput!]
+  update: [KeyUpdateWithWhereUniqueWithoutEnvironmentInput!]
+  updateMany: [KeyUpdateManyWithWhereNestedInput!]
+  upsert: [KeyUpsertWithWhereUniqueWithoutEnvironmentInput!]
+}
+
+input KeyUpdateManyWithoutOrganizationInput {
+  connect: [KeyWhereUniqueInput!]
+  create: [KeyCreateWithoutOrganizationInput!]
+  delete: [KeyWhereUniqueInput!]
+  deleteMany: [KeyScalarWhereInput!]
+  disconnect: [KeyWhereUniqueInput!]
+  set: [KeyWhereUniqueInput!]
+  update: [KeyUpdateWithWhereUniqueWithoutOrganizationInput!]
+  updateMany: [KeyUpdateManyWithWhereNestedInput!]
+  upsert: [KeyUpsertWithWhereUniqueWithoutOrganizationInput!]
+}
+
+input KeyUpdateManyWithWhereNestedInput {
+  data: KeyUpdateManyDataInput!
+  where: KeyScalarWhereInput!
+}
+
+input KeyUpdateWithoutEnvironmentDataInput {
+  createdAt: DateTime
+  id: UUID
+  organization: OrganizationUpdateOneWithoutKeysInput
+}
+
+input KeyUpdateWithoutOrganizationDataInput {
+  createdAt: DateTime
+  environment: EnvironmentUpdateOneWithoutKeysInput
+  id: UUID
+}
+
+input KeyUpdateWithWhereUniqueWithoutEnvironmentInput {
+  data: KeyUpdateWithoutEnvironmentDataInput!
+  where: KeyWhereUniqueInput!
+}
+
+input KeyUpdateWithWhereUniqueWithoutOrganizationInput {
+  data: KeyUpdateWithoutOrganizationDataInput!
+  where: KeyWhereUniqueInput!
+}
+
+input KeyUpsertWithWhereUniqueWithoutEnvironmentInput {
+  create: KeyCreateWithoutEnvironmentInput!
+  update: KeyUpdateWithoutEnvironmentDataInput!
+  where: KeyWhereUniqueInput!
+}
+
+input KeyUpsertWithWhereUniqueWithoutOrganizationInput {
+  create: KeyCreateWithoutOrganizationInput!
+  update: KeyUpdateWithoutOrganizationDataInput!
+  where: KeyWhereUniqueInput!
+}
+
+input KeyWhereInput {
+  AND: [KeyWhereInput!]
+  createdAt: DateTimeFilter
+  environment: EnvironmentWhereInput
+  id: UUIDFilter
+  NOT: [KeyWhereInput!]
+  OR: [KeyWhereInput!]
+  organization: OrganizationWhereInput
+}
+
+input KeyWhereUniqueInput {
+  id: UUID
+}
+
 type Mutation {
   createOneEnvironment(data: EnvironmentCreateInput!): Environment!
+  createOneKey(data: KeyCreateInput!): Key!
   createOneOrganization(data: OrganizationCreateInput!): Organization!
   createOneSwitch(data: SwitchCreateInput!): Switch!
   deleteOneEnvironment(where: EnvironmentWhereUniqueInput!): Environment
+  deleteOneKey(where: KeyWhereUniqueInput!): Key
   deleteOneSwitch(where: SwitchWhereUniqueInput!): Switch
   updateOneOrganization(data: OrganizationUpdateInput!, where: OrganizationWhereUniqueInput!): Organization
   updateOneSwitch(data: SwitchUpdateInput!, where: SwitchWhereUniqueInput!): Switch
@@ -177,22 +345,32 @@ enum OrderByArg {
 
 type Organization {
   id: ID!
+  keys(after: UUID, before: UUID, first: Int, last: Int, skip: Int): [Key!]!
   name: String
 }
 
 input OrganizationCreateInput {
   environments: EnvironmentCreateManyWithoutEnvironmentsInput
   id: ID
+  keys: KeyCreateManyWithoutKeysInput
   name: String
   switches: SwitchCreateManyWithoutSwitchesInput
 }
 
 input OrganizationCreateOneWithoutOrganizationInput {
   connect: OrganizationWhereUniqueInput
-  create: OrganizationCreateWithoutSwitchesInput
+  create: OrganizationCreateWithoutEnvironmentsInput
 }
 
 input OrganizationCreateWithoutEnvironmentsInput {
+  id: ID
+  keys: KeyCreateManyWithoutKeysInput
+  name: String
+  switches: SwitchCreateManyWithoutSwitchesInput
+}
+
+input OrganizationCreateWithoutKeysInput {
+  environments: EnvironmentCreateManyWithoutEnvironmentsInput
   id: ID
   name: String
   switches: SwitchCreateManyWithoutSwitchesInput
@@ -201,12 +379,14 @@ input OrganizationCreateWithoutEnvironmentsInput {
 input OrganizationCreateWithoutSwitchesInput {
   environments: EnvironmentCreateManyWithoutEnvironmentsInput
   id: ID
+  keys: KeyCreateManyWithoutKeysInput
   name: String
 }
 
 input OrganizationUpdateInput {
   environments: EnvironmentUpdateManyWithoutOrganizationInput
   id: ID
+  keys: KeyUpdateManyWithoutOrganizationInput
   name: String
   switches: SwitchUpdateManyWithoutOrganizationInput
 }
@@ -225,7 +405,24 @@ input OrganizationUpdateOneRequiredWithoutSwitchesInput {
   upsert: OrganizationUpsertWithoutSwitchesInput
 }
 
+input OrganizationUpdateOneWithoutKeysInput {
+  connect: OrganizationWhereUniqueInput
+  create: OrganizationCreateWithoutKeysInput
+  delete: Boolean
+  disconnect: Boolean
+  update: OrganizationUpdateWithoutKeysDataInput
+  upsert: OrganizationUpsertWithoutKeysInput
+}
+
 input OrganizationUpdateWithoutEnvironmentsDataInput {
+  id: ID
+  keys: KeyUpdateManyWithoutOrganizationInput
+  name: String
+  switches: SwitchUpdateManyWithoutOrganizationInput
+}
+
+input OrganizationUpdateWithoutKeysDataInput {
+  environments: EnvironmentUpdateManyWithoutOrganizationInput
   id: ID
   name: String
   switches: SwitchUpdateManyWithoutOrganizationInput
@@ -234,12 +431,18 @@ input OrganizationUpdateWithoutEnvironmentsDataInput {
 input OrganizationUpdateWithoutSwitchesDataInput {
   environments: EnvironmentUpdateManyWithoutOrganizationInput
   id: ID
+  keys: KeyUpdateManyWithoutOrganizationInput
   name: String
 }
 
 input OrganizationUpsertWithoutEnvironmentsInput {
   create: OrganizationCreateWithoutEnvironmentsInput!
   update: OrganizationUpdateWithoutEnvironmentsDataInput!
+}
+
+input OrganizationUpsertWithoutKeysInput {
+  create: OrganizationCreateWithoutKeysInput!
+  update: OrganizationUpdateWithoutKeysDataInput!
 }
 
 input OrganizationUpsertWithoutSwitchesInput {
@@ -251,6 +454,7 @@ input OrganizationWhereInput {
   AND: [OrganizationWhereInput!]
   environments: EnvironmentFilter
   id: StringFilter
+  keys: KeyFilter
   name: NullableStringFilter
   NOT: [OrganizationWhereInput!]
   OR: [OrganizationWhereInput!]
@@ -262,6 +466,7 @@ input OrganizationWhereUniqueInput {
 }
 
 type Query {
+  key(where: KeyWhereUniqueInput!): Key
   organization(where: OrganizationWhereUniqueInput!): Organization
   switch(where: SwitchWhereUniqueInput!): Switch
   switches(after: ID, before: ID, first: Int, last: Int, orderBy: QuerySwitchesOrderByInput, skip: Int, where: QuerySwitchesWhereInput): [Switch!]!
@@ -321,12 +526,12 @@ input SwitchCreateInput {
 
 input SwitchCreateManyWithoutSwitchesInput {
   connect: [SwitchWhereUniqueInput!]
-  create: [SwitchCreateWithoutDefaultVariantInput!]
+  create: [SwitchCreateWithoutOrganizationInput!]
 }
 
 input SwitchCreateOneWithoutSwitchInput {
   connect: SwitchWhereUniqueInput
-  create: SwitchCreateWithoutEnvironmentsInput
+  create: SwitchCreateWithoutVariantsInput
 }
 
 input SwitchCreateWithoutDefaultVariantInput {
@@ -581,6 +786,22 @@ input SwitchWhereInput {
 
 input SwitchWhereUniqueInput {
   id: ID
+}
+
+scalar UUID
+
+input UUIDFilter {
+  contains: UUID
+  endsWith: UUID
+  equals: UUID
+  gt: UUID
+  gte: UUID
+  in: [UUID!]
+  lt: UUID
+  lte: UUID
+  not: UUID
+  notIn: [UUID!]
+  startsWith: UUID
 }
 
 type Variant {
