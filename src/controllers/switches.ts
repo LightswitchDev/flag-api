@@ -15,10 +15,10 @@ const getSwitchesWithAuthHeader: Handler = async (req, res) => {
     const hasValidKey = keys.some(key => key.id === apiKey)
     if (!hasValidKey) return res.sendStatus(403)
 
-    const switches = await photon.switches.findMany({
+    const lightswitches = await photon.switches.findMany({
       where: { organization: { id: clientId } },
     })
-    return res.json({ switches })
+    return res.json({ lightswitches })
   } catch (e) {
     console.error(e)
     return res.sendStatus(500)
