@@ -3,6 +3,7 @@
   "scripts": {
     "start": "node dist/server",
     "clean": "rm -rf dist",
+    "build:remote": "gcloud builds submit --tag gcr.io/pristine-flames-265923/flag-api",
     "build": "npm -s run generate && tsc",
     "generate": "npm -s run generate:prisma && npm -s run generate:nexus",
     "generate:prisma": "prisma2 generate",
@@ -15,6 +16,7 @@
     "@prisma/photon": "2.0.0-preview019",
     "basic-auth": "^2.0.1",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "graphql": "14.5.8",
     "graphql-yoga": "1.18.3",
     "nexus": "0.12.0-rc.5",
