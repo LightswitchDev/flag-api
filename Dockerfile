@@ -1,5 +1,5 @@
 FROM node:13 as builder
-RUN npm install -g --unsafe-perm prisma2
+RUN npm i -g --unsafe-perm prisma2@2.0.0-alpha.538
 
 RUN mkdir /app
 WORKDIR /app
