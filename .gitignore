@@ -11,3 +11,4 @@ build/Release
 dist
 .DS_Store
 .next/
+.env

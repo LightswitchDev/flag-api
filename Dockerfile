@@ -10,6 +10,9 @@ RUN npm i --ignore-scripts
 
 COPY prisma ./prisma/
 COPY src ./src/
+# this needs to be set for the build but it isn't used.
+# only necessary at run time / for migrations
+ARG POSTGRESQL_URL=''
 RUN npm run postinstall
 
 COPY tsconfig.json ./
