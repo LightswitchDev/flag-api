@@ -1,5 +1,4 @@
 FROM node:13 as builder
-RUN npm i -g --unsafe-perm prisma2@2.0.0-alpha.538
 
 RUN mkdir /app
 WORKDIR /app
@@ -8,22 +7,15 @@ COPY package*.json ./
 
 RUN npm i --ignore-scripts
 
-COPY prisma ./prisma/
-COPY src ./src/
-# this needs to be set for the build but it isn't used.
-# only necessary at run time / for migrations
-ARG POSTGRESQL_URL=''
-RUN npm run postinstall
-
+COPY server ./server/
+COPY build.ts ./
 COPY tsconfig.json ./
 RUN npm run build
 
-CMD [ "node", "dist/server" ]
+FROM node:13
 
-# FROM node:13
+COPY package* ./
+RUN npm ci
+COPY --from=builder ./app/dist ./dist
 
-# COPY --from=builder ./app/dist ./dist
-# COPY package* ./
-# RUN npm ci
-
-# CMD [ "node", "dist/server" ]
+CMD [ "node", "dist" ]

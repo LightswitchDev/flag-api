@@ -1,0 +1,87 @@
+openapi: 3.0.1
+info:
+  title: lightswitch-api
+  description: Lightswitch API
+  version: 1.0.0
+servers:
+  - url: /v1
+tags:
+  - name: Organizations
+    description: Simple example endpoints
+  - name: Specification
+    description: The swagger API specification
+paths:
+  /organizations:
+    post:
+      tags:
+        - Organizations
+      description: Create a new org
+      requestBody:
+        description: an Org
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrgBody'
+        required: true
+      responses:
+        200:
+          description: Returns all examples
+          content: {}
+  /organizations/{id}:
+    get:
+      tags:
+        - Organizations
+      parameters:
+        - name: id
+          in: path
+          description: The id of the example to retrieve
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Return the example with the specified id
+          content: {}
+        404:
+          description: Example not found
+          content: {}
+    put:
+      tags:
+        - Organizations
+      parameters:
+        - name: id
+          in: path
+          description: The id of the example to retrieve
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: an Org
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrgBody'
+      responses:
+        200:
+          description: Return the example with the specified id
+          content: {}
+        404:
+          description: Example not found
+          content: {}
+  /spec:
+    get:
+      tags:
+        - Specification
+      responses:
+        200:
+          description: Return the API specification
+          content: {}
+components:
+  schemas:
+    OrgBody:
+      title: example
+      type: object
+      properties:
+        name:
+          type: string
+          example: no_stress
