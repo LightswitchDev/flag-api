@@ -20,20 +20,21 @@ export class OrganizationsService {
     const org = await this.byId(id);
     if (!org) return;
 
-    const lightswitches = org.lightswitches;
-    logger.debug(lightswitch);
+    const lightswitches = lightswitch
+      ? [
+          ...org.lightswitches.filter(ls => ls.key !== lightswitch.key),
+          lightswitch,
+        ]
+      : org.lightswitches;
+
     await Organization.update(
       {
         name,
-        lightswitches: lightswitch
-          ? [
-              ...lightswitches.filter(ls => ls.key !== lightswitch.key),
-              lightswitch,
-            ]
-          : lightswitches,
+        lightswitches,
       },
       { where: { id }, limit: 1 }
     );
+    return { ...org, lightswitches };
   }
 }
 

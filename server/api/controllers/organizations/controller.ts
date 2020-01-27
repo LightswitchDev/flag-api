@@ -31,9 +31,13 @@ export class Controller {
       const { id } = req.params;
 
       const { name, lightswitch } = req.body;
-      await OrganizationsService.update(id, name, lightswitch);
+      const organization = await OrganizationsService.update(
+        id,
+        name,
+        lightswitch
+      );
       logger.debug(lightswitch);
-      res.sendStatus(204);
+      res.json({ organization });
     } catch (e) {
       req.log.error(e);
       res.sendStatus(500);
