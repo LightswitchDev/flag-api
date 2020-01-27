@@ -6,7 +6,17 @@ class Organization extends Model {
   id!: string;
   name: string | null;
   key!: string;
+  lightswitches: Lightswitch[];
 }
+
+export type Lightswitch = {
+  name: string;
+  key: string;
+  createdAt: string;
+  updatedAt: string;
+  type: string;
+  enabled: true;
+};
 
 const OrganizationSchema = {
   id: {
@@ -19,6 +29,10 @@ const OrganizationSchema = {
   name: {
     type: DataTypes.STRING,
     allowNull: true,
+  },
+  lightswitches: {
+    type: DataTypes.JSONB,
+    defaultValue: [],
   },
   key: {
     type: DataTypes.STRING,

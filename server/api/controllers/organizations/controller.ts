@@ -1,5 +1,6 @@
 import OrganizationsService from '../../services/organizations.service';
 import { Request, Response } from 'express';
+import { logger } from '../../../common/logger';
 
 export class Controller {
   async byId(req: Request, res: Response): Promise<void> {
@@ -29,8 +30,9 @@ export class Controller {
     try {
       const { id } = req.params;
 
-      const { name } = req.body;
-      await OrganizationsService.update(id, name);
+      const { name, lightswitch } = req.body;
+      await OrganizationsService.update(id, name, lightswitch);
+      logger.debug(lightswitch);
       res.sendStatus(204);
     } catch (e) {
       req.log.error(e);

@@ -2,6 +2,7 @@ import express, { Application } from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
 import http from 'http';
+import cors from 'cors';
 import os from 'os';
 import cookieParser from 'cookie-parser';
 import { logger, loggerMiddleware } from './logger';
@@ -17,6 +18,7 @@ export default class ExpressServer {
     const root = path.normalize(__dirname + '/../..');
     app.set('appPath', root + 'client');
     app.use(bodyParser.json({ limit: process.env.REQUEST_LIMIT || '100kb' }));
+    app.use(cors());
     app.use(
       bodyParser.urlencoded({
         extended: true,
