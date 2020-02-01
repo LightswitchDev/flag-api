@@ -1,16 +1,22 @@
-import SwitchesService from '../../services/switches.service';
 import { Request, Response } from 'express';
-import { Switch } from '../../services/switches.service';
+import auth from 'basic-auth';
+import OrganizationsService from '../../services/organizations.service';
 
 export class Controller {
-  update(req: Request, res: Response): void {
+  async getSwitches(req: Request, res: Response) {
     try {
-      const lightswitch: Switch = req.body;
-      const organization = SwitchesService.update(lightswitch);
-      res.status(201).json({ organization });
+      const { name: clientId, pass: apiKey } = auth(req) ?? {};
+      if (!clientId || !apiKey) return res.sendStatus(403);
+
+      const { lightswitches, key } = await OrganizationsService.byId(clientId);
+      if (!key) return res.sendStatus(403);
+      const hasValidKey = key === apiKey;
+      if (!hasValidKey) return res.sendStatus(403);
+
+      return res.json({ lightswitches });
     } catch (e) {
-      req.log.error(e);
-      res.sendStatus(500);
+      console.error(e);
+      return res.sendStatus(500);
     }
   }
 }

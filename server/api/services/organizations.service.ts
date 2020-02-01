@@ -24,7 +24,9 @@ export class OrganizationsService {
       ? [
           ...org.lightswitches.filter(ls => ls.key !== lightswitch.key),
           lightswitch,
-        ]
+        ].sort((ls1, ls2) =>
+          (ls1.name + ls1.key).localeCompare(ls2.name + ls2.key)
+        )
       : org.lightswitches;
 
     await Organization.update(
