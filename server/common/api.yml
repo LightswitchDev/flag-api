@@ -11,6 +11,15 @@ tags:
   - name: Specification
     description: The swagger API specification
 paths:
+  /switches:
+    get:
+      tags:
+        - Switches
+      description: Get org's switches
+      responses:
+        200:
+          description: Returns all examples
+          content: {}
   /organizations:
     post:
       tags:
