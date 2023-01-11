@@ -24,7 +24,7 @@
     "express-openapi-validator": "^3.6.6",
     "express-pino-logger": "^4.0.0",
     "express-session": "^1.17.0",
-    "knex": "^0.20.8",
+    "knex": "^2.4.0",
     "passport": "^0.4.1",
     "passport-github": "^1.1.0",
     "pg": "^7.17.1",
